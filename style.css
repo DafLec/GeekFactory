@@ -1,0 +1,10 @@
+body{
+    background-color: #ACFFAC;
+}
+nav{
+    background-color: #CBFFCB;
+    color: darkgreen;
+}
+.right{
+    float: right;
+}

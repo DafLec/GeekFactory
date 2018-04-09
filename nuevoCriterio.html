@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Establecimiento de criterios</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <a href="index.html"><img src="GeekFactory.PNG" alt="logo" width="200px"></a>
+        <br>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand">Nuevo criterio</a> 
+        </nav>
+        <div class="container">
+            <div class="mx-auto text-center" style="width: 300px;">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Nombre del criterio</label>
+                        <input type="email" class="form-control text-center" id="exampleFormControlInput1" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo</label><br>
+                        <input type="radio" value="cuantitativo">Cuantitativo<br>
+                        <input type="radio" value="cualitativo">Cualitativo
+                    </div>
+                    <div class="form-group">
+                        <label >Mejor calificación es otrogada al valor</label>
+                        <select class="form-control">
+                            <option>Mayor</option>
+                            <option>Menor</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-success"><a href="criterio.html"><img src= "back.png"></a></button>
+        </div>
+    </body>
+</html>
