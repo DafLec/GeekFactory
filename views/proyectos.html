@@ -4,27 +4,65 @@
         <title>Registro de proyectos</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
+        <script src="../js/store.everything.min.js"></script>
+        <script src="../js/jquery-3.3.1.min.js"></script>
     </head>
     <body>
         <a href="index.html"><img src="../img/GeekFactory.PNG" alt="logo" width="200px"></a>
         <br>
+
+        <!-- Creates project, stores it in store.js -->
+        <script>
+            function createProject() {
+                //Gets information from forms
+                var projectName = document.getElementById("projectName").value;
+                var projectDescription = document.getElementById("projectDescription").value;
+                var projectQty = document.getElementById("projectQty").value;
+
+                if (projectName != '') {
+                    //Sets values to the store object
+                    //If there is no project with that name, it will be created, otherwise it will alert the user.
+                    if (store.get(projectName) == null) {
+                        store.set(projectName, {name: projectName, description: projectDescription, quantity: projectQty});//Stores information about project in storage
+                        var project = store.get(projectName);
+                        console.log("Project created! \nName: " + project.name + "\nDescription: " + project.description + "\nQuantity: " + project.quantity + "\n");
+                    } else if (store.get(projectName) !== null) {
+                        alert("Lo sentimos, este proyecto ya existe!");
+                    }
+                }else {
+                    alert("Porfavor escriba un nombre para el proyecto");
+                }
+
+                //TODO:Delete after testing.
+                //Prints in console all projects.
+                store.each(function(value, key) {
+                    console.log("Name: " + store.get(key).name);
+                    console.log("Description: " + store.get(key).description);
+                    console.log("Quantity: " + store.get(key).quantity + "\n");
+                })
+
+                //Testing purposes.
+                // store.clearAll();
+            }
+        </script>
+        <!-- Ends create project, stored in store.js-->
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand">Registro de proyectos</a>
         </nav>
         <div class="container">
             <div class="mx-auto text-center" style="width: 300px;">
-                <form>
+                <form onsubmit="createProject()">
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Nombre del proyecto</label>
-                        <input type="text" class="form-control text-center" id="exampleFormControlInput1" placeholder="Nombre">
+                        <label for="projectName">Nombre del proyecto</label>
+                        <input id="projectName" type="text" class="form-control text-center" placeholder="Nombre">
                     </div>
                     <div class="form-group">
-                        <label>Descripción</label>
-                        <textarea class="form-control"></textarea>
+                        <label for="projectDescription">Descripción</label>
+                        <textarea id="projectDescription" class="form-control"></textarea>
                     </div>
                     <div>
-                        <label>Costo</label>
-                        <input type="text" class="form-control text-center" placeholder="Cantidad">
+                        <label for="projectQty">Costo</label>
+                        <input id="projectQty" type="text" class="form-control text-center" placeholder="Cantidad">
                     </div>
                     <br>
                     <div class="text-center">
