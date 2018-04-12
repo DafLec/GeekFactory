@@ -4,8 +4,10 @@
         <title>Asignación de valores por criterio y proyecto</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
+        <script src="../js/store.everything.min.js"></script>
+        <script src="../js/jquery-3.3.1.min.js"></script>
     </head>
-    <body>
+    <body  onload="fillTable()">
         <a href="index.html"><img src="../img/GeekFactory.PNG" alt="logo" width="200px"></a>
         <br>
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -24,7 +26,7 @@
             </div> 
         </nav>
         <div class="container">
-            <table class="table table-bordered">
+            <table id="projectTable" class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Proyecto</th>
@@ -46,5 +48,33 @@
             </div>
             <!--</button>-->
         </div>
+        <!-- Fills table, info stored in store.js -->
+        <script>
+            function fillTable() {
+                // Find a <table> element with id="myTable":
+                var table = document.getElementById("projectTable");
+                // Create an empty <tr> element and add it to the 1st position of the table:
+                var row = null;
+                // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+                var cellName = null;
+                var cellCriteria1 = null;
+                var cellCriteria2 = null;
+
+                //Fills table with all projects.
+                store.each(function(value, key) {
+                    //Assign values
+                    row = table.insertRow(1);
+                    cellName = row.insertCell(0);
+                    cellCriteria1 = row.insertCell(1);
+                    cellCriteria2 = row.insertCell(2);
+
+                    //Gets information from store.js
+                    cellName.innerHTML = store.get(key).name;
+                    cellCriteria1.innerHTML = "Criterio 1";//TODO: Missing criteria in store.js
+                    cellCriteria2.innerHTML = "Criterio 2";//TODO: Missing criteria in store.js
+                });
+            }
+        </script>
+        <!-- Ends fill table, info stored in store.js-->
     </body>
 </html>
