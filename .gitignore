@@ -1,2 +1,6 @@
 #ignore webstorm files
 .idea
+
+#Ignore mac metadata
+.DS_Store
+
