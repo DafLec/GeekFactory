@@ -8,3 +8,44 @@ nav{
 .right{
     float: right;
 }
+
+/*Table css for scrolling: Reference from: http://jsfiddle.net/hashem/CrSpu/557/*/
+table.scroll {
+    width: 100%; /* 140px * 5 column + 16px scrollbar width */
+    /*height: 40rem;*/
+    border-spacing: 1px;
+    border: 2px solid black;
+}
+
+table.scroll tbody,
+table.scroll thead tr { display: block; }
+
+table.scroll tbody {
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+table.scroll tbody td,
+table.scroll thead th {
+    width: 140px;
+    height: 10px;
+    border-right: 1px solid black;
+}
+
+table.scroll thead th:last-child {
+    width: 156px; /* 140px + 16px scrollbar width */
+}
+
+thead tr th {
+    height: 1px;
+    line-height: 30px;
+    /*text-align: left;*/
+}
+
+tbody { border-top: 2px solid black; }
+
+tbody td:last-child, thead th:last-child {
+    border-right: none !important;
+}
+/*Ends table scroll*/

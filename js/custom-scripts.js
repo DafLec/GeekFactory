@@ -8,27 +8,10 @@ function clearStoreDB() {
 }
 <!-- Fills table, info stored in store.js in valores.html-->
 function fillTable() {
-    // Find a <table> element with id="myTable":
-    var table = document.getElementById("projectTable");
-    // Create an empty <tr> element and add it to the 1st position of the table:
-    var row = null;
-    // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-    var cellName = null;
-    var cellCriteria1 = null;
-    var cellCriteria2 = null;
 
     //Fills table with all projects.
     store.each(function(value, key) {
-        //Assign values
-        row = table.insertRow(1);
-        cellName = row.insertCell(0);
-        cellCriteria1 = row.insertCell(1);
-        cellCriteria2 = row.insertCell(2);
-
-        //Gets information from store.js
-        cellName.innerHTML = store.get(key).name;
-        cellCriteria1.innerHTML = "Criterio 1";//TODO: Missing criteria in store.js
-        cellCriteria2.innerHTML = "Criterio 2";//TODO: Missing criteria in store.js
+        $("#projectTable").append("<tr><td>"+ store.get(key).name+"</td><td>Criteria 1</td><td>Criteria 2</td></tr>");
     });
 }
 <!-- Ends fill table, info stored in store.js-->
