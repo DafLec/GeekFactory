@@ -6,7 +6,7 @@ function clearStoreDB() {
     //Cleans data
     store.clearAll();
 }
-<!-- Fills table, info stored in store.js in valores.html-->
+// Fills table, info stored in store.js in valores.html
 function fillTable() {
 
     //Fills table with all projects.
@@ -14,9 +14,9 @@ function fillTable() {
         $("#projectTable").append("<tr><td>"+ store.get(key).name+"</td><td>Criteria 1</td><td>Criteria 2</td></tr>");
     });
 }
-<!-- Ends fill table, info stored in store.js-->
+// Ends fill table, info stored in store.js-->
 
-<!-- Creates project, stores it in store.js -->
+// Creates project, stores it in store.js -->
 function createProject() {
     //Gets information from forms
     var projectName = document.getElementById("projectName").value;
@@ -45,4 +45,35 @@ function createProject() {
         console.log("Quantity: " + store.get(key).quantity + "\n");
     })
 }
-<!-- Ends create project, stored in store.js-->
+
+// Ends create project, stored in store.js-->
+
+$(document).ready(function () {
+
+    // Creates new criteria
+    $('#newCriteria-Form').submit(function (e) {
+        e.preventDefault();
+
+        //Gets values from the form and puts them in an array.
+        var data = $(this).serializeArray();
+
+        //Store data into Store.js
+        if (data[0].value != '') {
+            //Sets values to the store object
+            //If there is no criteria with that name, it will be created, otherwise it will alert the user.
+            if (store.get(data[0].value) == null) {
+                store.set(data[0].value, {name: data[0].value, type: data[1].value, quantity: data[2].value});//Stores information about project in storage
+
+                var criteria = store.get(data[0].value);
+                console.log("Criteria created! \nName: " + criteria.name + "\nType: " + criteria.type + "\nQuantity: " + criteria.quantity + "\n");
+
+                $('#newCriteria-Form').trigger('reset');//Cleans/Restarts #newCriteria-Form.
+
+            } else if (store.get(data[0].value) !== null) {
+                alert("Lo sentimos, este criterio ya existe!");
+            }
+        }else {
+            alert("Porfavor escriba un nombre para el criterio");
+        }
+    });
+});
