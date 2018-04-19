@@ -46,8 +46,11 @@ function createProject() {
     })
 }
 
-// Ends create project, stored in store.js-->
+function createProyect() {
+    
+}
 
+// Ends create project, stored in store.js-->
 $(document).ready(function () {
 
     // Creates new criteria
