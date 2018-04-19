@@ -1,0 +1,28 @@
+{
+   "name": "dashed-frontend",
+   "version": "1.0.0",
+   "description": "Proyecto en desarollo por alumnos de ITESM campus Monterrey",
+   "main": "server.js",
+   "engines": {
+      "node": "8.11.1",
+      "yarn": "1.5.1"
+   },
+   "scripts": {
+      "start": "node server.js"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+hhttps://github.com/DafLec/GeekFactory.git"
+   },
+   "author": "",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/DafLec/GeekFactory/issues"
+   },
+   "homepage": "https://github.com/DafLec/GeekFactory#readme",
+   "dependencies": {
+      "express": "^4.16.3",
+      "moment": "^2.22.0",
+      "socket.io": "^2.1.0"
+   }
+}
