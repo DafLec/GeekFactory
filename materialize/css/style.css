@@ -1,5 +1,5 @@
 body{
-    background-color: #b9f6ca;
+    background-color: #a7ffeb;
 }
 
 .right{
@@ -59,4 +59,8 @@ tbody td:last-child, thead th:last-child {
     height: 100px;
     max-height: 100px;
 
+}
+
+div.cardRound {
+    border-radius: 15px;
 }
