@@ -50,7 +50,7 @@
                                 <div class="card-image">
                                     <i class="material-icons large blue-grey-text" style="padding-left: 35%; padding-top: 5%">youtube_searched_for</i>
                                     <div class="divider"></div>
-                                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons blue">add</i></a>
+                                    <a href="#modal1" class="modal-trigger btn btn-floating halfway-fab waves-effect waves-light blue"><i class="material-icons">add</i></a>
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title blue-grey-text"><b>Agregar criterio</b></span>
@@ -62,13 +62,40 @@
                                 <div class="card-image">
                                     <i class="material-icons large blue-grey-text" style="padding-left: 35%; padding-top: 5%">work</i>
                                     <div class="divider"></div>
-                                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons blue">add</i></a>
+                                    <a href="#modal1" class="modal-trigger btn btn-floating halfway-fab waves-effect waves-light blue"><i class="material-icons">add</i></a>
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title blue-grey-text"><b>Agregar proyecto</b></span>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <!-- Modal Structure -->
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <h4>Modal Header</h4>
+                        <p>A bunch of text</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form onsubmit="createProject()">
+                            <div class="form-group">
+                                <label for="projectName">Nombre del proyecto</label>
+                                <input id="projectName" type="text" class="form-control text-center" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="projectDescription">Descripción</label>
+                                <textarea id="projectDescription" class="form-control"></textarea>
+                            </div>
+                            <div>
+                                <label for="projectQty">Costo</label>
+                                <input id="projectQty" type="number" class="form-control text-center" placeholder="Cantidad">
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <button type="submit" class="modal-action modal-close btn btn-outline-success">Guardar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -89,5 +116,6 @@
         <script type="text/javascript" src="../materialize/js/materialize.js"></script>
         <!-- SweetAlerts -->
         <script src="../materialize/vendors/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="../js/custom-scripts.js"></script>
     </body>
 </html>

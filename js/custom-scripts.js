@@ -46,15 +46,61 @@ function createProject() {
     })
 }
 
-function createProyect() {
-    
-}
+// function createHtmlSwal(html) {
+//     console.log(html);
+//     swal({  title: "Agregar proyecto",
+//             text: html.toString(),
+//             type: "input",
+//             html: true,
+//             showCancelButton: true,
+//             confirmButtonColor: "#DD6B55",
+//             confirmButtonText: "Agregar",
+//             cancelButtonText: "Cancelar",
+//             closeOnConfirm: false,
+//             closeOnCancel: false },
+//         function(isConfirm){
+//             if (isConfirm) {
+//                 swal("Success!", "Tu proyecto ha sido agregado correctamente. :)", "success");   }
+//             else {
+//                 swal("Cancelado", "Se cancelo el proyecto ),:", "error");   }
+//         });
+// }
 
 // Ends create project, stored in store.js-->
 $(document).ready(function () {
 
-    //Starts tabs
-    $('.tabs').tabs();
+    $('.modal').modal();
+
+    // $('#addProject').on('click', function () {
+    //     var html;
+    //     html = '' +
+    //         '<form onsubmit="createProject()">'+
+    //         '   <div class="form-group">' +
+    //         '       <label for="projectName">Nombre del proyecto</label>' +
+    //         '       <input id="projectName" type="text" class="form-control text-center" placeholder="Nombre">' +
+    //         '    </div>' +
+    //         '    <div class="form-group">' +
+    //         '       <label for="projectDescription">Descripción</label>' +
+    //         '       <textarea id="projectDescription" class="form-control"></textarea>' +
+    //         '    </div>' +
+    //         '    <div>' +
+    //         '       <label for="projectQty">Costo</label>' +
+    //         '       <input id="projectQty" type="number" class="form-control text-center" placeholder="Cantidad">' +
+    //         '    </div>' +
+    //         '    <br>' +
+    //         '    <div class="text-center">' +
+    //         '       <button type="submit" class="btn btn-outline-success">Guardar</button>' +
+    //         '    </div>' +
+    //         '</form>';
+    //     console.log("Project add", html);
+    //     createHtmlSwal(html);
+    // });
+    //
+    // $('#addProject').on('click', function () {
+    //     var html = '';
+    //     console.log("Project add");
+    //     createHtmlSwal(html);
+    // });
 
     // Creates new criteria
     $('#newCriteria-Form').submit(function (e) {
