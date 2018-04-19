@@ -70,8 +70,11 @@ function createHtmlSwal(html) {
 // Ends create project, stored in store.js-->
 $(document).ready(function () {
 
+    //Needed for materialize css.
     $('.modal').modal();
     $('select').formSelect();
+    $('.tabs').tabs({swipeable: true});
+
     // $('#addProject').on('click', function () {
     //     var html;
     //     html = '' +
