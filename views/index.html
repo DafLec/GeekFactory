@@ -17,7 +17,16 @@
         <header>
             <nav class="nav-bar-custom">
                 <div class="nav-wrapper teal accent-3">
-                    <a href="index.html" style="font-size: 50px"><img src="../img/GeekFactory.PNG" alt="logo" class="nav-bar-img"><b> Geek Factory</b></a>
+                    <div class="col s12 m12">
+                        <div class="row">
+                            <div class="col s2 m2">
+                                <img src="../img/GeekFactory.PNG" alt="logo" class="nav-bar-img">
+                            </div>
+                            <div class="col s2 m8 center" style="padding-top: 1%">
+                                <a href="index.html" style="font-size: 50px"><b>Geek Factory</b></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </header>
@@ -47,53 +56,122 @@
                     <div class="col s12 m12 offset-m2">
                         <div class="col s12 m3">
                             <div class="card cardRound">
-                                <div class="card-image">
-                                    <i class="material-icons large blue-grey-text" style="padding-left: 35%; padding-top: 5%">youtube_searched_for</i>
+                                <div class="card-image center">
+                                    <i class="material-icons large blue-grey-text" style="padding-top: 5%">youtube_searched_for</i>
                                     <div class="divider"></div>
-                                    <a href="#modal1" class="modal-trigger btn btn-floating halfway-fab waves-effect waves-light blue"><i class="material-icons">add</i></a>
                                 </div>
-                                <div class="card-content">
-                                    <span class="card-title blue-grey-text"><b>Agregar criterio</b></span>
+                                <div class="card-title center">
+                                    <a>Criterio</a>
+                                </div>
+                                <div class="card-content center">
+                                    <a id="addCriteria" href="#modalCriteria" class="modal-trigger btn white-text blue">Agregar criterio</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col s12 m3 offset-m1">
                             <div class="card cardRound">
-                                <div class="card-image">
-                                    <i class="material-icons large blue-grey-text" style="padding-left: 35%; padding-top: 5%">work</i>
+                                <div class="card-image center">
+                                    <i class="material-icons large blue-grey-text" style="padding-top: 5%">work</i>
                                     <div class="divider"></div>
-                                    <a href="#modal1" class="modal-trigger btn btn-floating halfway-fab waves-effect waves-light blue"><i class="material-icons">add</i></a>
                                 </div>
-                                <div class="card-content">
-                                    <span class="card-title blue-grey-text"><b>Agregar proyecto</b></span>
+                                <div class="card-title center">
+                                    <a>Proyecto</a>
+                                </div>
+                                <div class="card-content center">
+                                    <a id="addProject" href="#modalProject" class="modal-trigger btn white-text blue">Agregar proyecto</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Modal Structure -->
-                <div id="modal1" class="modal">
+                <div id="modalProject" class="modal">
                     <div class="modal-content">
-                        <h4>Modal Header</h4>
-                        <p>A bunch of text</p>
+                        <h4>Agregar Proyecto</h4>
+                        <p>Ingrese la informacion</p>
                     </div>
                     <div class="modal-footer">
                         <form onsubmit="createProject()">
-                            <div class="form-group">
-                                <label for="projectName">Nombre del proyecto</label>
-                                <input id="projectName" type="text" class="form-control text-center" placeholder="Nombre">
+                            <div class="col s12 m12">
+                                <div class="row">
+                                    <div class="form-group s12 m12" style="max-width: 95%; max-height: 95%; padding-top: 10%; padding-left: 6%; padding-right: 6%">
+                                        <label for="projectName">Nombre del proyecto</label>
+                                        <input id="projectName" type="text" class="form-control text-center" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group s12 m12" style="max-width: 95%; max-height: 95%; padding-top: 10%; padding-left: 6%; padding-right: 6%">
+                                        <label for="projectDescription">Descripción</label>
+                                        <textarea id="projectDescription" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group s12 m12" style="max-width: 95%; max-height: 95%; padding-top: 10%; padding-left: 6%; padding-right: 6%">
+                                        <label for="projectQty">Costo</label>
+                                        <input id="projectQty" type="number" class="form-control text-center" placeholder="Cantidad">
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="row">
+                                    <div class="text-center center">
+                                        <button type="reset" class="modal-action modal-close btn btn-outline-error red">Cerrar</button>
+                                        <button type="submit" class="btn btn-outline-success">Guardar</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="projectDescription">Descripción</label>
-                                <textarea id="projectDescription" class="form-control"></textarea>
-                            </div>
-                            <div>
-                                <label for="projectQty">Costo</label>
-                                <input id="projectQty" type="number" class="form-control text-center" placeholder="Cantidad">
-                            </div>
-                            <br>
-                            <div class="text-center">
-                                <button type="submit" class="modal-action modal-close btn btn-outline-success">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+                <div id="modalCriteria" class="modal">
+                    <div class="modal-content">
+                        <h4>Agregar Proyecto</h4>
+                        <p>Ingrese la informacion</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form id="newCriteria-Form">
+                            <div class="col s12 m12">
+                                <div class="row">
+                                    <div class="form-group s12 m12" style="max-width: 95%; max-height: 95%; padding-top: 5%; padding-left: 5%; padding-right: 5%">
+                                        <label for="criteriaName">Nombre del criterio</label>
+                                        <input type="text" class="form-control text-center" id="criteriaName" name="criteriaName" placeholder="Nombre del criterio">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group s12 m12" style="max-width: 95%; max-height: 95%; padding-top: 5%; padding-left: 5%; padding-right: 5%">
+                                        <p>Tipo</p>
+                                        <p>
+                                            <label>
+                                                <input class="with-gap" name="group1" type="radio"  />
+                                                <span><b>Cualitativo</b></span>
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input class="with-gap" name="group1" type="radio"  />
+                                                <span><b>Cuantitativo</b></span>
+                                            </label>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group s12 m12" style="max-width: 95%; max-height: 95%; padding-top: 5%; padding-left: 5%; padding-right: 5%">
+                                        <div class="input-field col s12">
+                                            <select>
+                                                <option value="" disabled selected>Choose your option</option>
+                                                <option value="1">Mayor</option>
+                                                <option value="2">Menor</option>
+                                            </select>
+                                            <label>Mejor calificación es otrogada al valor:</label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="row">
+                                    <div class="text-center center">
+                                        <button type="reset" class="modal-action modal-close btn btn-outline-error red">Cerrar</button>
+                                        <button type="submit" class="btn btn-outline-success">Guardar</button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

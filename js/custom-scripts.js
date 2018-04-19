@@ -30,9 +30,9 @@ function createProject() {
             store.set(projectName, {name: projectName, description: projectDescription, quantity: projectQty});//Stores information about project in storage
             var project = store.get(projectName);
             console.log("Project created! \nName: " + project.name + "\nDescription: " + project.description + "\nQuantity: " + project.quantity + "\n");
+
         } else if (store.get(projectName) !== null) {
-            alert("Lo sentimos, este proyecto ya existe!");
-        }
+            swal("Error!", "Lo sentimos el proyecto ya existe!", "error")        }
     }else {
         alert("Porfavor escriba un nombre para el proyecto");
     }
@@ -46,31 +46,32 @@ function createProject() {
     })
 }
 
-// function createHtmlSwal(html) {
-//     console.log(html);
-//     swal({  title: "Agregar proyecto",
-//             text: html.toString(),
-//             type: "input",
-//             html: true,
-//             showCancelButton: true,
-//             confirmButtonColor: "#DD6B55",
-//             confirmButtonText: "Agregar",
-//             cancelButtonText: "Cancelar",
-//             closeOnConfirm: false,
-//             closeOnCancel: false },
-//         function(isConfirm){
-//             if (isConfirm) {
-//                 swal("Success!", "Tu proyecto ha sido agregado correctamente. :)", "success");   }
-//             else {
-//                 swal("Cancelado", "Se cancelo el proyecto ),:", "error");   }
-//         });
-// }
+function createHtmlSwal(html) {
+    console.log(html);
+    swal({  title: "Agregar proyecto",
+            text: html.toString(),
+            type: "input",
+            html: true,
+            customClass: 'swal-wide',
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Agregar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false },
+        function(isConfirm){
+            if (isConfirm) {
+                swal("Success!", "Tu proyecto ha sido agregado correctamente. :)", "success");   }
+            else {
+                swal("Cancelado", "Se cancelo el proyecto ),:", "error");   }
+        });
+}
 
 // Ends create project, stored in store.js-->
 $(document).ready(function () {
 
     $('.modal').modal();
-
+    $('select').formSelect();
     // $('#addProject').on('click', function () {
     //     var html;
     //     html = '' +
@@ -95,7 +96,7 @@ $(document).ready(function () {
     //     console.log("Project add", html);
     //     createHtmlSwal(html);
     // });
-    //
+
     // $('#addProject').on('click', function () {
     //     var html = '';
     //     console.log("Project add");

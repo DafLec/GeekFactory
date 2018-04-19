@@ -64,3 +64,12 @@ tbody td:last-child, thead th:last-child {
 div.cardRound {
     border-radius: 15px;
 }
+
+.swal-wide{
+    width:850px !important;
+}
+
+.modal {
+    width: 30rem !important ;
+    height:  50rem !important ;
+}
