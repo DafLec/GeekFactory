@@ -3,12 +3,11 @@
     <head>
         <meta charset="utf-8">
         <title>Selección de proyectos estratégicos</title>
-        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../materialize/css/style.css">
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
-
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <!-- Sweet Alerts -->
@@ -42,19 +41,36 @@
             <!--</div>-->
         <!--</nav>-->
         <div class="container">
-            <br>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consequat vestibulum augue quis finibus. Sed posuere varius felis id mattis. Sed tincidunt commodo sem in ornare. Nullam rhoncus blandit semper. Duis lacinia, magna ac ullamcorper imperdiet, nulla eros finibus purus, in ornare velit leo ac massa. Vivamus a nunc vestibulum, lacinia sapien nec, sodales velit. Vestibulum non neque maximus, ultrices lectus quis, aliquet turpis. Phasellus rhoncus semper tellus. In viverra consequat viverra. Ut magna est, suscipit ac vehicula ut, convallis a dui. Curabitur porta, purus nec facilisis mollis, leo nisi faucibus sapien, congue sodales eros lacus nec lacus. Aenean eu neque tortor. Curabitur bibendum lobortis risus, non finibus quam hendrerit eget. Phasellus interdum cursus nibh, a tristique dolor pharetra vitae. Aliquam sit amet lorem euismod, viverra turpis eu, rhoncus ligula.
-            </p>
+
+            <div id="contentTabs">
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab col s3"><a href="#test1">Test 1</a></li>
+                            <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
+                            <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
+                            <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                        </ul>
+                    </div>
+                    <div id="test1" class="col s12">Test 1</div>
+                    <div id="test2" class="col s12">Test 2</div>
+                    <div id="test3" class="col s12">Test 3</div>
+                    <div id="test4" class="col s12">Test 4</div>
+                </div>
+            </div>
             <!--  TODO: <a> inside <button> is not allowed in HTML5 use styled <div>-->
             <!--<button type="button" class="btn btn-outline-success right">-->
-            <div class="btn btn-outline-success right">
-                <a href="criterio.html"><img src= "../img/next.png"></a>
-            </div>
+            <!--<div class="btn btn-outline-success right">-->
+                <!--<a href="criterio.html"><img src= "../img/next.png"></a>-->
+            <!--</div>-->
             <!--</button>-->
         </div>
+        <!--Jquery-->
+        <script src="../js/store.everything.min.js"></script>
+        <script src="../js/jquery-3.3.1.min.js"></script>
         <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="../js/materialize.min.js"></script>
+        <script type="text/javascript" src="../js/materialize.js"></script>
         <!-- SweetAlerts -->
         <script src="../vendors/sweetalert/dist/sweetalert.min.js"></script>
     </body>

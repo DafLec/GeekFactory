@@ -53,6 +53,9 @@ function createProyect() {
 // Ends create project, stored in store.js-->
 $(document).ready(function () {
 
+    //Starts tabs
+    $('.tabs').tabs();
+
     // Creates new criteria
     $('#newCriteria-Form').submit(function (e) {
         e.preventDefault();
