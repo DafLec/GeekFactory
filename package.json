@@ -5,7 +5,7 @@
    "main": "server.js",
    "engines": {
       "node": "8.11.1",
-      "yarn": "1.5.1"
+      "npm": "5.6.0"
    },
    "scripts": {
       "start": "node server.js"
@@ -14,7 +14,7 @@
       "type": "git",
       "url": "git+hhttps://github.com/DafLec/GeekFactory.git"
    },
-   "author": "",
+   "author": "Jorge Diaz",
    "license": "ISC",
    "bugs": {
       "url": "https://github.com/DafLec/GeekFactory/issues"
