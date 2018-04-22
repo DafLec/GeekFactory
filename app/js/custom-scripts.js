@@ -44,13 +44,13 @@ function fillValuesTab(){
             }
             //In the first column we need the criteria name
             if(i>0&&j==0){
-                $("#value-swipe").children("form").children("table").append("<tr><th>"+store.get("criteria"+i).name+"</th></tr>");
+                $("#value-swipe").children("form").children("table").append("<tr id=value-swipe"+i+"><th>"+store.get("criteria"+i).name+"</th></tr>");
             }else if(i>0&&j>0){
                 //The following columns depend on the type of criterion
                 if(store.get("criteria"+i).type=="Cualitativo"){
-                    $("#value-swipe").children("form").children("table").append('<td><div class="input-field col s12"><select><option value="" disabled selected>Eliga una opción</option><option value="1">Muy bajo</option><option value="2">Bajo</option><option value="3">Medio</option><option value="4">Alto</option><option value="5">Muy alto</option></select></div></td>');
+                    $("#value-swipe"+i).append('<td><select style="display: inline"><option value="" disabled selected>Eliga una opción</option><option value="1">Muy bajo</option><option value="2">Bajo</option><option value="3">Medio</option><option value="4">Alto</option><option value="5">Muy alto</option></select></td>');
                 }else{
-                    $("#value-swipe").children("form").children("table").append('<td><input type="number" class="form-control text-center"></td>');
+                    $("#value-swipe"+i).append('<td><input type="number" class="form-control text-center"></td>');
                 }
                 
             }
