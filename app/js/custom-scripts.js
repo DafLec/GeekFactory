@@ -6,53 +6,45 @@ function clearStoreDB() {
     //Cleans data
     store.clearAll();
 }
-// Fills table, info stored in store.js in valores.html
-function fillTable() {
-    //Fills table with all projects.
-    store.get('proyects').each(function(value, key) {
-        var html;
-        html = "<li class='collection-item'><div>"+ store.get(key).name+ "<a href='#!' class='secondary-content'><i class='material-icons'>add</i></a></div></li>";
-        $("#projectListSide").append(html);
-    });
-}
-// Ends fill table, info stored in store.js-->
 
-// Fills table, info stored in store.js in valores.html
+// Fills project table
 function fillProjectTable() {
-
+    for(var i=1; i<=store.get("projectTot"); i++){
+        $('#projectListSide').append("<li>"+store.get("project"+i).name+"</li>");
+    }
 
 }
-// Ends fill table, info stored in store.js-->
 
-function createHtmlSwal(html) {
-    console.log(html);
-    swal({  title: "Agregar proyecto",
-            text: html.toString(),
-            type: "input",
-            html: true,
-            customClass: 'swal-wide',
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Agregar",
-            cancelButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false },
-        function(isConfirm){
-            if (isConfirm) {
-                swal("Success!", "Tu proyecto ha sido agregado correctamente. :)", "success");   }
-            else {
-                swal("Cancelado", "Se cancelo el proyecto ),:", "error");   }
-        });
+//Fills criteria table
+function fillCriteriaTable(){
+    for(var i=1; i<=store.get("criteriaTot"); i++){
+        $('#criteriaListSide').append("<li>"+store.get("criteria"+i).name+"</li>");
+    }
 }
 
-// Ends create project, stored in store.js-->
+//Runs when html finishes loading
 $(document).ready(function () {
+    //clearStoreDB();
     //Needed for materialize css.
     $('.modal').modal();
     $('select').formSelect();
     $('.tabs').tabs({swipeable: true});
-
-    // Creates new criteria
+    
+    //Total number of criteria and projects
+    if(store.get("criteriaTot")==null){
+        store.set("criteriaTot", 0);
+    }
+    if(store.get("projectTot") == null){
+       store.set("projectTot", 0)
+    }
+    var ptot = store.get("projectTot");
+    var ctot = store.get("criteriaTot");
+    
+    //Fills both tables
+    fillCriteriaTable();
+    fillProjectTable();
+    
+    // Creates new criteria on submit forms
     $('#newCriteria-Form').submit(function (e) {
         e.preventDefault();
 
@@ -64,9 +56,11 @@ $(document).ready(function () {
             //Sets values to the store object
             //If there is no criteria with that name, it will be created, otherwise it will alert the user.
             if (store.get(data[0].value) == null) {
-                store.set(data[0].value, {name: data[0].value, quantity: data[1].value});//Stores information about criteria in storage
-                var criteria = store.get(data[0].value);
-                console.log("Criteria created! \nName: " + criteria.name + "\nQuantity: " + criteria.quantity + "\n");
+                ctot ++;
+                store.set("criteria"+ctot, {name: data[0].value, type: data[1].value});//Stores information about criteria in storage
+                var criteria = store.get("criteria"+ctot);
+                console.log("Criteria created! \nName: " + criteria.name + "\nQuantity: " + criteria.type + "\n");
+                store.set("criteriaTot", ctot);
                 $('#newCriteria-Form').trigger('reset');//Cleans/Restarts #newCriteria-Form.
 
             } else if (store.get(data[0].value) !== null) {
@@ -77,7 +71,7 @@ $(document).ready(function () {
         }
     });
     
-    //Creates new project
+    //Creates new project on submit forms
     $('#newProject-Form').submit(function(e) {
         e.preventDefault();
         //Gets values from the form
@@ -85,9 +79,11 @@ $(document).ready(function () {
         console.log("Proyecto: ",data);
         if(data[0].value != ''){
             if(store.get(data[0].value) == null){
-                store.set(data[0].value, {name: data[0].value, description: data[1].value, cost: data[2].value});
-                var project = store.get(data[0].value);
-                console.log('Project created! \nName: '+project.name + '\nDescription: '+project.description+'\nQuantity: '+project.cost);
+                ptot ++;
+                store.set("project"+ptot, {name: data[0].value, description: data[1].value, cost: data[2].value});
+                var project = store.get("project"+ptot);
+                console.log('Project created! \nName: '+project.name + '\nDescription: '+project.description+'\nCost: '+project.cost);
+                store.set("projectTot", ptot);
                 $('newProject-Form').trigger('reset');
             }else if (store.get(data[0].vale) !== null){
                 alert("Lo sentimos, este proyecto ya existe");

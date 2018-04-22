@@ -13,7 +13,7 @@
         <!-- Sweet Alerts -->
     	<link href="materialize/vendors/sweetalert/dist/sweetalert.css" type="text/css" rel="stylesheet">
     </head>
-    <body id="mainBody" onload="fillTable()">
+    <body id="mainBody">
         <header>
             <nav class="nav-bar-custom">
                 <div class="nav-wrapper teal accent-3">
@@ -39,7 +39,7 @@
                                 <div class="card-title center">
                                     <a>Lista de criterios</a>
                                 </div>
-                                <ul class="collection with-header" style="max-height: 300px; overflow-y:auto; border-radius: 15px">
+                                <ul id="criteriaListSide" class="collection with-header" style="max-height: 300px; overflow-y:auto; border-radius: 15px">
                                 </ul>
                             </div>
                         </div>
@@ -157,13 +157,13 @@
                                         <p>Tipo</p>
                                         <p>
                                             <label>
-                                                <input class="with-gap" name="group1" type="radio"  />
+                                                <input class="with-gap" name="group1" type="radio" value="qualitative"/>
                                                 <span><b>Cualitativo</b></span>
                                             </label>
                                         </p>
                                         <p>
                                             <label>
-                                                <input class="with-gap" name="group1" type="radio"  />
+                                                <input class="with-gap" name="group1" type="radio" value="quantitative"/>
                                                 <span><b>Cuantitativo</b></span>
                                             </label>
                                         </p>
