@@ -9,12 +9,38 @@ function clearStoreDB() {
 // Fills table, info stored in store.js in valores.html
 function fillTable() {
 
+    // //Fills table with all projects.
+    // store.each(function(value, key) {
+    //     $("#projectTable").append("<tr><td>"+ store.get(key).name+"</td><td>Criteria 1</td><td>Criteria 2</td></tr>");
+    // });
+
     //Fills table with all projects.
-    store.each(function(value, key) {
-        $("#projectTable").append("<tr><td>"+ store.get(key).name+"</td><td>Criteria 1</td><td>Criteria 2</td></tr>");
+    store.get('proyects').each(function(value, key) {
+        var html;
+        html = "<li class='collection-item'><div>"+ store.get(key).name+ "<a href='#!' class='secondary-content'><i class='material-icons'>add</i></a></div></li>";
+        $("#projectListSide").append(html);
     });
 }
 // Ends fill table, info stored in store.js-->
+
+// Fills table, info stored in store.js in valores.html
+function fillProjectTable() {
+
+
+}
+// Ends fill table, info stored in store.js-->
+
+// // Fills table, info stored in store.js in valores.html
+// function fillCriteriaTable() {
+//
+//     //Fills table with all projects.
+//     store.each(function(value, key) {
+//         var html = '';
+//         html = ;
+//         $("#projectTable").append(html);
+//     });
+// }
+// // Ends fill table, info stored in store.js-->
 
 // Creates project, stores it in store.js -->
 function createProject() {
@@ -112,16 +138,16 @@ $(document).ready(function () {
 
         //Gets values from the form and puts them in an array.
         var data = $(this).serializeArray();
-
+        console.log("Criterio: " , data);
         //Store data into Store.js
         if (data[0].value != '') {
             //Sets values to the store object
             //If there is no criteria with that name, it will be created, otherwise it will alert the user.
             if (store.get(data[0].value) == null) {
-                store.set(data[0].value, {name: data[0].value, type: data[1].value, quantity: data[2].value});//Stores information about project in storage
+                store.set(data[0].value, {name: data[0].value, quantity: data[1].value});//Stores information about project in storage
 
                 var criteria = store.get(data[0].value);
-                console.log("Criteria created! \nName: " + criteria.name + "\nType: " + criteria.type + "\nQuantity: " + criteria.quantity + "\n");
+                console.log("Criteria created! \nName: " + criteria.name + "\nQuantity: " + criteria.quantity + "\n");
 
                 $('#newCriteria-Form').trigger('reset');//Cleans/Restarts #newCriteria-Form.
 
