@@ -66,7 +66,18 @@
                                 <li class="tab col s3"><a class="active" href="#criteria-swap">Criterios</a></li>
                                 <li class="tab col s3"><a href="#value-swipe">Valores</a></li>
                             </ul>
-                            <div id="criteria-swap" class="col s12 blue">Criterios</div>
+                            <div id="criteria-swap" class="col s12 blue">
+                                <form>
+                                    <table>
+                                        <tr><th>Criterio</th>
+                                        <th>Tipo</th>
+                                        <th>Ponderación</th></tr>
+                                    </table>
+                                    <div class="text-center center">
+                                        <button type="submit" class="btn btn-outline-success">Guardar</button>
+                                    </div>
+                                </form>
+                            </div>
                             <div id="value-swipe" class="col s12 green">Valores</div>
                         </div>
                     </div>
@@ -157,13 +168,13 @@
                                         <p>Tipo</p>
                                         <p>
                                             <label>
-                                                <input class="with-gap" name="group1" type="radio" value="qualitative"/>
+                                                <input class="with-gap" name="group1" type="radio" value="Cualitativo"/>
                                                 <span><b>Cualitativo</b></span>
                                             </label>
                                         </p>
                                         <p>
                                             <label>
-                                                <input class="with-gap" name="group1" type="radio" value="quantitative"/>
+                                                <input class="with-gap" name="group1" type="radio" value="Cuantitativo"/>
                                                 <span><b>Cuantitativo</b></span>
                                             </label>
                                         </p>

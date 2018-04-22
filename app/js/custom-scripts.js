@@ -22,9 +22,16 @@ function fillCriteriaList(){
     }
 }
 
+//Fills criteria tab table
+function fillCriteriaTab(){
+    for(var i=1; i<=store.get("criteriaTot"); i++){
+        var temp = store.get("criteria"+i);
+        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input type= 'text'></td></tr>")
+    }
+}
+
 //Runs when html finishes loading
 $(document).ready(function () {
-    //clearStoreDB();
     //Needed for materialize css.
     $('.modal').modal();
     $('select').formSelect();
@@ -43,6 +50,7 @@ $(document).ready(function () {
     //Fills both lists
     fillCriteriaList();
     fillProjectList();
+    fillCriteriaTab();
     
     // Creates new criteria on submit forms
     $('#newCriteria-Form').submit(function (e) {
