@@ -2,9 +2,6 @@ body{
     background-color: #a7ffeb;
 }
 
-.right{
-    float: right;
-}
 
 /*Table css for scrolling: Reference from: http://jsfiddle.net/hashem/CrSpu/557/*/
 table.scroll {
