@@ -26,7 +26,7 @@ function fillCriteriaList(){
 function fillCriteriaTab(){
     for(var i=1; i<=store.get("criteriaTot"); i++){
         var temp = store.get("criteria"+i);
-        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input type= 'text'></td></tr>")
+        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input type= 'text' name='ponC"+i+"'></td></tr>")
     }
 }
 
@@ -82,6 +82,7 @@ $(document).ready(function () {
     //Fills both tabs
     fillCriteriaTab();
     fillValuesTab();
+    
     // Creates new criteria on submit forms
     $('#newCriteria-Form').submit(function (e) {
         e.preventDefault();
@@ -130,5 +131,26 @@ $(document).ready(function () {
         }else{
             alert("Por favor escriba el nombre del proyecto");
         }
+    });
+    
+    //Saves the value of the ponderations of the criteria
+    $('#criteriaPonderation-Form').submit(function(e){
+        e.preventDefault();
+        
+        var data = $(this).serializeArray();
+        for(var i =0; i<store.get("criteriaTot"); i++){
+            if(data[i].value== null){
+                alert("Debe de ingresar un varlor de ponderación para cada criterio")
+                break;
+            }else{
+                console.log("Ponderación criterio "+(i+1)+": "+data[i].value);
+                store.set("ponC"+(i+1),data[i].value);
+            }
+        }
+    });
+    
+    //Analize and shows the priority of each project   
+    $('#value-Form').submit(function(e){
+        
     });
 });
