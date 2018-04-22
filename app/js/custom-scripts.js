@@ -7,16 +7,16 @@ function clearStoreDB() {
     store.clearAll();
 }
 
-// Fills project table
-function fillProjectTable() {
+// Fills project list
+function fillProjectList() {
     for(var i=1; i<=store.get("projectTot"); i++){
         $('#projectListSide').append("<li>"+store.get("project"+i).name+"</li>");
     }
 
 }
 
-//Fills criteria table
-function fillCriteriaTable(){
+//Fills criteria list
+function fillCriteriaList(){
     for(var i=1; i<=store.get("criteriaTot"); i++){
         $('#criteriaListSide').append("<li>"+store.get("criteria"+i).name+"</li>");
     }
@@ -40,9 +40,9 @@ $(document).ready(function () {
     var ptot = store.get("projectTot");
     var ctot = store.get("criteriaTot");
     
-    //Fills both tables
-    fillCriteriaTable();
-    fillProjectTable();
+    //Fills both lists
+    fillCriteriaList();
+    fillProjectList();
     
     // Creates new criteria on submit forms
     $('#newCriteria-Form').submit(function (e) {
