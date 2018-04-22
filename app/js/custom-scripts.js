@@ -100,7 +100,7 @@ $(document).ready(function () {
                 console.log("Criteria created! \nName: " + criteria.name + "\nQuantity: " + criteria.type + "\n");
                 store.set("criteriaTot", ctot);
                 $('#newCriteria-Form').trigger('reset');//Cleans/Restarts #newCriteria-Form.
-
+                location.reload();
             } else if (store.get(data[0].value) !== null) {
                 alert("Lo sentimos, este criterio ya existe");
             }
@@ -123,6 +123,7 @@ $(document).ready(function () {
                 console.log('Project created! \nName: '+project.name + '\nDescription: '+project.description+'\nCost: '+project.cost);
                 store.set("projectTot", ptot);
                 $('#newProject-Form').trigger('reset');
+                location.reload();
             }else if (store.get(data[0].vale) !== null){
                 alert("Lo sentimos, este proyecto ya existe");
             }
