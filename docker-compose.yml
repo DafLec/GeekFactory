@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  website:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 63343:63342
+    command: npm start
