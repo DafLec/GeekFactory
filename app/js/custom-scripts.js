@@ -44,7 +44,7 @@ function fillCriteriaList(){
 function fillCriteriaTab(){
     for(var i=1; i<=store.get("criteriaTot"); i++){
         var temp = store.get("criteria"+i);
-        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input class='col s2 m2 white-text' min='0' max='100' type= 'text' name='ponC"+i+"'><a class='white-text col s1 m1'>%</a> </td></tr>")
+        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input class='col s2 m2 white-text' min='0' max='100' type= 'number' name='ponC"+i+"'><a class='white-text col s1 m1'>%</a> </td></tr>")
     }
 }
 
@@ -76,6 +76,10 @@ function fillValuesTab(){
     }
 }
 
+function refreshCtotal(ponCtot){
+    $('#cTotal').text('Total: ' + ponCtot+'%');
+}
+
 //Runs when html finishes loading
 $(document).ready(function () {
     //Needed for materialize css.
@@ -93,6 +97,8 @@ $(document).ready(function () {
     }
     var ptot = store.get("projectTot");
     var ctot = store.get("criteriaTot");
+    var ponCtot = 0;
+    console.log("criteriaTot", ctot);
     
     //Fills both lists
     fillCriteriaList();
@@ -158,14 +164,24 @@ $(document).ready(function () {
         
         var data = $(this).serializeArray();
         for(var i =0; i<store.get("criteriaTot"); i++){
-            if(data[i].value== null){
+            if(data[i].value == null || data[i].value === '' || data[i].value === 'NaN'){
                 alert("Debe de ingresar un valor de ponderación para cada criterio");
                 break;
-            }else{
+            }else {
                 console.log("Ponderación criterio "+(i+1)+": "+data[i].value);
                 store.set("ponC"+(i+1),data[i].value);
+                ponCtot += parseInt(data[i].value);
+                refreshCtotal(ponCtot);
+                console.log("ponCtot", ponCtot);
             }
         }
+
+        console.log("Ponderacion:", ponCtot);
+        if ( ponCtot !== 100 ){
+            alert("Porfavor verifique que la suma de las ponderaciones sea igual a 100");
+        }
+
+        ponCtot = 0;
     });
     
     //Analize and shows the priority of each project   
