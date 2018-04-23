@@ -7,6 +7,46 @@ function clearStoreDB() {
     store.clearAll();
 }
 
+function suggestInvest(){
+    var investment = $('#inversion').val();
+    var pCost = 100;//TODO:CHANGE FOR REAL VALUES FROM PROJECTS.
+    var html = '<a class="blue-grey-text">Proyectos prioritarios ejecutables con el presupuesto de inversion: </a>'+
+        '<br><br>'+
+        '<div class="divider"></div> '+
+        '<div style="overflow-y: scroll">';
+
+    var i;
+    for (i = 0; i < 20; i++) {
+        if (pCost<=investment){
+            html += '' +
+                '<a>'+i+'</a><br>' +
+                '<div class="divider"></div>';
+        }
+    }
+
+    html += '</div>';
+    swal({
+            title: "Listo!",
+            text: html,
+            type: "success",
+            html: true,
+            customClass: 'swal-wider',
+            confirmButtonColor: "#00b0ff",
+            confirmButtonText: "Terminar",
+            closeOnConfirm: true },
+        function(){
+
+        });
+}
+
+$('#inversion').on('input',function(e){
+    if ($(this).val() === null || $(this).val() == '' || $(this).val() === 0) {
+        $('#btnInvest').hide();
+    } else {
+        $('#btnInvest').show();
+    }
+});
+
 // Fills project list
 function fillProjectList() {
     var html = '';
@@ -21,7 +61,6 @@ function fillProjectList() {
             '</li>';
         $('#projectListSide').append(html);
     }
-
 }
 
 //Fills criteria list
@@ -76,38 +115,39 @@ function fillValuesTab(){
     }
 }
 
-function fillModalMatrizTable(){
-    for(var i=0; i<=store.get("criteriaTot"); i++){
+function fillModalMatrizTable() {
+    for (var i = 0; i <= store.get("criteriaTot"); i++) {
         //analize data
-        if(i>0){
+        if (i > 0) {
             var criteria = toArray(i);
-            console.log(store.get("criteria"+i));
-            if (store.get("criteria"+i).mayMen == 1){//Bigger is better
-                criteria= sortByKey(criteria, 'criterium').reverse(); //descending order
-            }else{//lower is better
-                criteria = sortByKey(criteria,"criterium");//acending order
-        }
-        
-        
-        //fills table
-        for(var j =0; j<=store.get("projectTot")+1;j++){
-            //This if is for filling the first row of the table
-            if(i==0){
-               if(j==0){
-                   $("#modalMatrizTable").append("<tr><th>Criterio</th></tr>");
-               }else if(j==1){
-                   $("#modalMatrizTable").children("tr").append("<th>Ponderación</th>");
-               }else{
-                    $("#modalMatrizTable").children("tr").append("<th>"+store.get("project"+(j-1)).name+"</th");   
-               }
+            console.log(store.get("criteria" + i));
+            if (store.get("criteria" + i).mayMen == 1) {//Bigger is better
+                criteria = sortByKey(criteria, 'criterium').reverse(); //descending order
+            } else {//lower is better
+                criteria = sortByKey(criteria, "criterium");//acending order
             }
-            //In the first column we need the criteria name
-            if(i>0&&j==0){
-                $("#modalMatrizTable").append("<tr id=matriz"+i+"><th>"+store.get("criteria"+i).name+"</th></tr>");
-            }
-            //In the second column we need the criterium's ponderation
-            if(i>0&&j==1){
-                $("#matriz"+i).append("<th>"+store.get("ponC"+i)+" %</th>");
+
+
+            //fills table
+            for (var j = 0; j <= store.get("projectTot") + 1; j++) {
+                //This if is for filling the first row of the table
+                if (i == 0) {
+                    if (j == 0) {
+                        $("#modalMatrizTable").append("<tr><th>Criterio</th></tr>");
+                    } else if (j == 1) {
+                        $("#modalMatrizTable").children("tr").append("<th>Ponderación</th>");
+                    } else {
+                        $("#modalMatrizTable").children("tr").append("<th>" + store.get("project" + (j - 1)).name + "</th");
+                    }
+                }
+                //In the first column we need the criteria name
+                if (i > 0 && j == 0) {
+                    $("#modalMatrizTable").append("<tr id=matriz" + i + "><th>" + store.get("criteria" + i).name + "</th></tr>");
+                }
+                //In the second column we need the criterium's ponderation
+                if (i > 0 && j == 1) {
+                    $("#matriz" + i).append("<th>" + store.get("ponC" + i) + " %</th>");
+                }
             }
         }
     }
