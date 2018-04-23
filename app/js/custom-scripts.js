@@ -86,8 +86,8 @@ function fillModalMatrizTable(){
                 criteria= sortByKey(criteria, 'criterium').reverse(); //descending order
             }else{//lower is better
                 criteria = sortByKey(criteria,"criterium");//acending order
+            }
         }
-        
         
         //fills table
         for(var j =0; j<=store.get("projectTot")+1;j++){
@@ -108,6 +108,12 @@ function fillModalMatrizTable(){
             //In the second column we need the criterium's ponderation
             if(i>0&&j==1){
                 $("#matriz"+i).append("<th>"+store.get("ponC"+i)+" %</th>");
+            }
+            //Following columns depend on priority
+            if(i>0&&j>1){
+                criteria.forEach(function(c){
+                    console.log(c.name);
+                });
             }
         }
     }
