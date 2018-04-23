@@ -99,6 +99,10 @@ function refreshCtotal(ponCtot){
     $('#cTotal').text('Total: ' + ponCtot+'%');
 }
 
+function valueMatrix() {
+    console.log("Matrix function init");
+}
+
 //Runs when html finishes loading
 $(document).ready(function () {
     //Needed for materialize css.
