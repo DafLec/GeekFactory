@@ -126,6 +126,7 @@ function fillValuesTab(){
 }
 
 function fillModalMatrizTable() {
+    $('#modalMatrizTable').html("");
     var i;
     for (i = 0; i <= store.get("criteriaTot"); i++) {
         //analize data
