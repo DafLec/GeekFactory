@@ -78,18 +78,24 @@ function fillValuesTab(){
 
 function fillModalMatrizTable(){
     for(var i=0; i<=store.get("criteriaTot"); i++){
-        for(var j =0; j<=store.get("projectTot");j++){
+        for(var j =0; j<=store.get("projectTot")+1;j++){
             //This if is for filling the first row of the table
             if(i==0){
                if(j==0){
-                   $("#modalMatriz").children("table").append("<tr><th>Criterio</th></tr>");   
+                   $("#modalMatrizTable").append("<tr><th>Criterio</th></tr>");
+               }else if(j==1){
+                   $("#modalMatrizTable").children("tr").append("<th>Ponderación</th>");
                }else{
-                   $("#modalMatriz").children("table").children("tr").append("<th>"+store.get("project"+j).name+"</th");
+                    $("#modalMatrizTable").children("tr").append("<th>"+store.get("project"+(j-1)).name+"</th");   
                }
             }
             //In the first column we need the criteria name
             if(i>0&&j==0){
-                $("#modalMatriz").children("table").append("<tr id=matriz"+i+"><th>"+store.get("criteria"+i).name+"</th></tr>");
+                $("#modalMatrizTable").append("<tr id=matriz"+i+"><th>"+store.get("criteria"+i).name+"</th></tr>");
+            }
+            //In the second column we need the criterium's ponderation
+            if(i>0&&j==1){
+                $("#matriz"+i).append("<th>"+store.get("ponC"+i)+" %</th>");
             }
         }
     }
@@ -99,8 +105,17 @@ function refreshCtotal(ponCtot){
     $('#cTotal').text('Total: ' + ponCtot+'%');
 }
 
+ //Saves the values of the criteria assigned to each project 
 function valueMatrix() {
-    console.log("Matrix function init");
+    console.log("Saved values!");
+    var data = $('#value-Form').serializeArray();
+    for(var i=1, j=0;i<=store.get("criteriaTot");i++){
+        for(var k=1;k<=store.get("projectTot");j++, k++){
+            store.set("proj"+k+"crit"+i, data[j].value);
+            console.log(store.get("proj"+k+"crit"+i));
+        }
+    }
+    fillModalMatrizTable();
 }
 
 //Runs when html finishes loading
@@ -205,17 +220,5 @@ $(document).ready(function () {
         }
 
         ponCtot = 0;
-    });
-    
-    //Saves the values of the criteria assigned to each project   
-    $('#value-Form').submit(function(e){
-        e.preventDefault();
-        console.log("Saved values!");
-        var data = $(this).serializeArray();
-        for(var i=1, j=0;i<=store.get("criteriaTot");i++){
-            for(var k=1;k<=store.get("projectTot");j++, k++){
-                store.set("proj"+k+"crit"+i, data[j].value);
-            }
-        }
     });
 });
