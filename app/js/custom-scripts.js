@@ -15,7 +15,7 @@ function fillProjectList() {
             '<li>' +
             '   <div class="collapsible-header blue-text">'+store.get("project"+i).name+'</div>' +
             '   <div class="collapsible-body">'+
-            '       <span>Description: '+store.get("project"+i).description+'</span><br>' +
+            '       <span>Descripción: '+store.get("project"+i).description+'</span><br>' +
             '       <span>Valor: $'+store.get("project"+i).cost+'</span>' +
             '   </div>' +
             '</li>';
@@ -154,7 +154,7 @@ $(document).ready(function () {
         var MayMen = $('#selectValueCrit').val();
         console.log("Criterio: " , data);
         //Store data into Store.js
-        if (data[0].value != '') {
+        if (data[0].value !== '' && data[0].value !== null && data[0].value !== 'undefined') {
             //Sets values to the store object
             //If there is no criteria with that name, it will be created, otherwise it will alert the user.
             if (store.get(data[0].value) == null) {
@@ -166,10 +166,10 @@ $(document).ready(function () {
                 $('#newCriteria-Form').trigger('reset');//Cleans/Restarts #newCriteria-Form.
                 location.reload();
             } else if (store.get(data[0].value) !== null) {
-                alert("Lo sentimos, este criterio ya existe");
+                swal("),:", "¡Lo sentimos, este criterio ya existe!", "error");
             }
         }else {
-            alert("Porfavor escriba un nombre para el criterio");
+            swal("¡Faltan campos!", "¡Porfavor escriba nombre de criterio!", "info");
         }
     });
     
@@ -179,7 +179,7 @@ $(document).ready(function () {
         //Gets values from the form
         var data = $(this).serializeArray();
         console.log("Proyecto: ",data);
-        if(data[0].value != ''){
+        if(data[0].value !== '' && data[0].value !== null && data[0].value !== 'undefined'){
             if(store.get(data[0].value) == null){
                 ptot ++;
                 store.set("project"+ptot, {name: data[0].value, description: data[1].value, cost: data[2].value});
@@ -189,10 +189,10 @@ $(document).ready(function () {
                 $('#newProject-Form').trigger('reset');
                 location.reload();
             }else if (store.get(data[0].vale) !== null){
-                alert("Lo sentimos, este proyecto ya existe");
+                swal("),:", "¡Lo sentimos, este proyecto ya existe!", "error");
             }
         }else{
-            alert("Por favor escriba el nombre del proyecto");
+            swal("¡Faltan campos!", "¡Porfavor escriba nombre de proyecto!", "info");
         }
     });
     
@@ -203,7 +203,7 @@ $(document).ready(function () {
         var data = $(this).serializeArray();
         for(var i =0; i<store.get("criteriaTot"); i++){
             if(data[i].value == null || data[i].value === '' || data[i].value === 'NaN'){
-                alert("Debe de ingresar un valor de ponderación para cada criterio");
+                swal("¡Aviso!", "Debe de ingresar un valor de ponderación para cada criterio.", "info");
                 break;
             }else {
                 console.log("Ponderación criterio "+(i+1)+": "+data[i].value);
@@ -216,7 +216,7 @@ $(document).ready(function () {
 
         console.log("Ponderacion:", ponCtot);
         if ( ponCtot !== 100 ){
-            alert("Porfavor verifique que la suma de las ponderaciones sea igual a 100");
+            swal("¡Error!", "Porfavor verifique que la suma de las ponderaciones sea igual a 100.", "error");
         }
 
         ponCtot = 0;
