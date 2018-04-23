@@ -8,35 +8,45 @@ function clearStoreDB() {
 }
 
 function suggestInvest(){
-    var investment = $('#inversion').val();
-    var pCost = 100;//TODO:CHANGE FOR REAL VALUES FROM PROJECTS.
-    var html = '<a class="blue-grey-text">Proyectos prioritarios ejecutables con el presupuesto de inversion: </a>'+
-        '<br><br>'+
-        '<div class="divider"></div> '+
-        '<div style="overflow-y: scroll">';
+    var temp = priorityArray();
+    if (temp !== null){
+        var investment = parseInt($('#inversion').val());
+        var pCost = 100;//TODO:CHANGE FOR REAL VALUES FROM PROJECTS.
+        var html = '<a class="blue-grey-text">Proyectos prioritarios ejecutables con el presupuesto de inversion: </a>'+
+            '<br><br>'+
+            '<div class="divider"></div> '+
+            '<div style="overflow-y: scroll">';
 
-    var i;
-    for (i = 0; i < 20; i++) {
-        if (pCost<=investment){
-            html += '' +
-                '<a>'+i+'</a><br>' +
-                '<div class="divider"></div>';
-        }
+        var i = 1;
+        $(temp).each(function (key, body) {
+            console.log("Cost: ", body.cost + " <= " + investment);
+            if ( parseInt(body.cost) <= investment){
+                html += '' +
+                    '<a>Prioridad: '+i+' :</a>' +
+                    '<a> Proyecto: '+body.name+'</a><br>' +
+                    '<div class="divider"></div>';
+            }
+        });
+
+
+
+        html += '</div>';
+        swal({
+                title: "Listo!",
+                text: html,
+                type: "success",
+                html: true,
+                customClass: 'swal-wider',
+                confirmButtonColor: "#00b0ff",
+                confirmButtonText: "Terminar",
+                closeOnConfirm: true },
+            function(){
+
+            });
+    }else {
+        swal("Error:", "¡Lo sentimos, la informacion no esta bien especificada!", "error");
     }
 
-    html += '</div>';
-    swal({
-            title: "Listo!",
-            text: html,
-            type: "success",
-            html: true,
-            customClass: 'swal-wider',
-            confirmButtonColor: "#00b0ff",
-            confirmButtonText: "Terminar",
-            closeOnConfirm: true },
-        function(){
-
-        });
 }
 
 $('#inversion').on('input',function(e){
@@ -209,7 +219,8 @@ function priorityArray(){
     var array =[];
     for(var i=1; i<= store.get("projectTot");i++){
         array.push({name: store.get("project"+i).name,
-                    priority: store.get("priorityProj"+i)});
+                    priority: store.get("priorityProj"+i),
+                    cost: store.get("project"+i).cost});
     }
     array = sortByKey(array, "priority");
     return array;
@@ -224,6 +235,8 @@ function sortByKey(array, key) {
 
 //Runs when html finishes loading
 $(document).ready(function () {
+
+    // clearStoreDB();
     //Needed for materialize css.
     $('.modal').modal();
     $('select').formSelect();
