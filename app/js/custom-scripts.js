@@ -78,6 +78,18 @@ function fillValuesTab(){
 
 function fillModalMatrizTable(){
     for(var i=0; i<=store.get("criteriaTot"); i++){
+        //analize data
+        if(i>0){
+            var criteria = toArray(i);
+            console.log(store.get("criteria"+i));
+            if (store.get("criteria"+i).mayMen == 1){//Bigger is better
+                criteria= sortByKey(criteria, 'criterium').reverse(); //descending order
+            }else{//lower is better
+                criteria = sortByKey(criteria,"criterium");//acending order
+        }
+        
+        
+        //fills table
         for(var j =0; j<=store.get("projectTot")+1;j++){
             //This if is for filling the first row of the table
             if(i==0){
@@ -116,6 +128,23 @@ function valueMatrix() {
         }
     }
     fillModalMatrizTable();
+}
+
+function toArray(n){
+    var array= [];
+    for (var i=1; i<=store.get("projectTot");i++){
+        array.push({name: store.get("project"+i).name,
+                   criterium: store.get("proj"+i+"crit"+n)});
+    }
+    //console.log(array);
+    return array;
+}
+
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
 }
 
 //Runs when html finishes loading
@@ -159,9 +188,9 @@ $(document).ready(function () {
             //If there is no criteria with that name, it will be created, otherwise it will alert the user.
             if (store.get(data[0].value) == null) {
                 ctot ++;
-                store.set("criteria"+ctot, {name: data[0].value, type: data[1].value, sort: MayMen});//Stores information about criteria in storage
+                store.set("criteria"+ctot, {name: data[0].value, type: data[1].value, mayMen: MayMen});//Stores information about criteria in storage
                 var criteria = store.get("criteria"+ctot);
-                console.log("Criteria created! \nName: " + criteria.name + "\nQuantity: " + criteria.type + "\nSort By: " + criteria.sort);
+                console.log("Criteria created! \nName: " + criteria.name + "\nQuantity: " + criteria.type + "\nSort By: " + criteria.mayMen);
                 store.set("criteriaTot", ctot);
                 $('#newCriteria-Form').trigger('reset');//Cleans/Restarts #newCriteria-Form.
                 location.reload();
