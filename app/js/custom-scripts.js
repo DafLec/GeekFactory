@@ -66,11 +66,30 @@ function fillValuesTab(){
             }else if(i>0&&j>0){
                 //The following columns depend on the type of criterion
                 if(store.get("criteria"+i).type=="Cualitativo"){
-                    $("#value-swipe"+i).append('<td><select style="display: inline"><option value="" disabled selected>Eliga una opción</option><option value="1">Muy bajo</option><option value="2">Bajo</option><option value="3">Medio</option><option value="4">Alto</option><option value="5">Muy alto</option></select></td>');
+                    $("#value-swipe"+i).append('<td><select style="display: inline" name="criterium"><option value="" disabled selected>Eliga una opción</option><option value="1">Muy bajo</option><option value="2">Bajo</option><option value="3">Medio</option><option value="4">Alto</option><option value="5">Muy alto</option></select></td>');
                 }else{
-                    $("#value-swipe"+i).append('<td><input type="number" class="form-control text-center col s10 m10 white-text"></td>');
+                    $("#value-swipe"+i).append('<td><input type="number" name="criterium" class="form-control text-center col s10 m10 white-text"></td>');
                 }
                 
+            }
+        }
+    }
+}
+
+function fillModalMatrizTable(){
+    for(var i=0; i<=store.get("criteriaTot"); i++){
+        for(var j =0; j<=store.get("projectTot");j++){
+            //This if is for filling the first row of the table
+            if(i==0){
+               if(j==0){
+                   $("#modalMatriz").children("table").append("<tr><th>Criterio</th></tr>");   
+               }else{
+                   $("#modalMatriz").children("table").children("tr").append("<th>"+store.get("project"+j).name+"</th");
+               }
+            }
+            //In the first column we need the criteria name
+            if(i>0&&j==0){
+                $("#modalMatriz").children("table").append("<tr id=matriz"+i+"><th>"+store.get("criteria"+i).name+"</th></tr>");
             }
         }
     }
@@ -98,7 +117,6 @@ $(document).ready(function () {
     var ptot = store.get("projectTot");
     var ctot = store.get("criteriaTot");
     var ponCtot = 0;
-    console.log("criteriaTot", ctot);
     
     //Fills both lists
     fillCriteriaList();
@@ -185,8 +203,15 @@ $(document).ready(function () {
         ponCtot = 0;
     });
     
-    //Analize and shows the priority of each project   
+    //Saves the values of the criteria assigned to each project   
     $('#value-Form').submit(function(e){
-        
+        e.preventDefault();
+        console.log("Saved values!");
+        var data = $(this).serializeArray();
+        for(var i=1, j=0;i<=store.get("criteriaTot");i++){
+            for(var k=1;k<=store.get("projectTot");j++, k++){
+                store.set("proj"+k+"crit"+i, data[j].value);
+            }
+        }
     });
 });
