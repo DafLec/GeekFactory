@@ -157,7 +157,7 @@ function fillModalMatrizTable() {
         }
     }
     //dos filas extras
-    for(var j=i, k=i+2, p=1; j<k;j++){
+    for(var j=i, k=i+2, p=1, q=1; j<k;j++){
         for (var l = 0; l <= store.get("projectTot") + 1; l++) {
             if(l==0){
                 $("#modalMatrizTable").append("<tr id=matriz" + j + "><th></th></tr>");
@@ -165,9 +165,14 @@ function fillModalMatrizTable() {
                 $("#matriz" + j).append("<th>Total</th>");
             }else if(l==1 && j==(i+1)){
                 $("#matriz" + j).append("<th>Prioridad</th>");
-            }else{
+            }else if (l>1 && j== i){
                 $("#matriz" + j).append("<th>"+store.get("priorityProj"+p)+"</th>");
                 p++;
+            }else{
+                var pp= priorityArray();
+                var index=pp.map(function (p) { return p.name; }).indexOf(store.get("project" + q).name);
+                $("#matriz" + j).append("<th>" + (index+1) + "</th>");
+                q++;
             }
         }
     }
@@ -197,6 +202,16 @@ function toArray(n){
                    criterium: store.get("proj"+i+"crit"+n)});
     }
     //console.log(array);
+    return array;
+}
+
+function priorityArray(){
+    var array =[];
+    for(var i=1; i<= store.get("projectTot");i++){
+        array.push({name: store.get("project"+i).name,
+                    priority: store.get("priorityProj"+i)});
+    }
+    array = sortByKey(array, "priority");
     return array;
 }
 
