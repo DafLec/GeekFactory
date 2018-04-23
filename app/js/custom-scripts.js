@@ -114,6 +114,7 @@ $(document).ready(function () {
 
         //Gets values from the form and puts them in an array.
         var data = $(this).serializeArray();
+        var MayMen = $('#selectValueCrit').val();
         console.log("Criterio: " , data);
         //Store data into Store.js
         if (data[0].value != '') {
@@ -121,9 +122,9 @@ $(document).ready(function () {
             //If there is no criteria with that name, it will be created, otherwise it will alert the user.
             if (store.get(data[0].value) == null) {
                 ctot ++;
-                store.set("criteria"+ctot, {name: data[0].value, type: data[1].value});//Stores information about criteria in storage
+                store.set("criteria"+ctot, {name: data[0].value, type: data[1].value, sort: MayMen});//Stores information about criteria in storage
                 var criteria = store.get("criteria"+ctot);
-                console.log("Criteria created! \nName: " + criteria.name + "\nQuantity: " + criteria.type + "\n");
+                console.log("Criteria created! \nName: " + criteria.name + "\nQuantity: " + criteria.type + "\nSort By: " + criteria.sort);
                 store.set("criteriaTot", ctot);
                 $('#newCriteria-Form').trigger('reset');//Cleans/Restarts #newCriteria-Form.
                 location.reload();
