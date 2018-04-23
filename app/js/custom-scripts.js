@@ -68,7 +68,7 @@ function fillValuesTab(){
                 if(store.get("criteria"+i).type=="Cualitativo"){
                     $("#value-swipe"+i).append('<td><select style="display: inline"><option value="" disabled selected>Eliga una opción</option><option value="1">Muy bajo</option><option value="2">Bajo</option><option value="3">Medio</option><option value="4">Alto</option><option value="5">Muy alto</option></select></td>');
                 }else{
-                    $("#value-swipe"+i).append('<td><a class="white-text col s1 m1">$</a><input type="number" class="form-control text-center col s4 m4 white-text"></td>');
+                    $("#value-swipe"+i).append('<td><input type="number" class="form-control text-center col s10 m10 white-text"></td>');
                 }
                 
             }
