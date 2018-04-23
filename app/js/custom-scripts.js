@@ -116,7 +116,8 @@ function fillValuesTab(){
 }
 
 function fillModalMatrizTable() {
-    for (var i = 0; i <= store.get("criteriaTot"); i++) {
+    var i;
+    for (i = 0; i <= store.get("criteriaTot"); i++) {
         //analize data
         if (i > 0) {
             var criteria = toArray(i);
@@ -128,8 +129,8 @@ function fillModalMatrizTable() {
         }
 
         //fills table
-        for (var j = 0; j <= store.get("projectTot") + 1; j++) {
-        //This if is for filling the first row of the table
+        for (var j = 0; j <= store.get("projectTot") + 1; j++) {            
+            //This if is for filling the first row of the table
             if (i == 0) {
                 if (j == 0) {
                     $("#modalMatrizTable").append("<tr><th>Criterio</th></tr>");
@@ -150,7 +151,23 @@ function fillModalMatrizTable() {
             //Following columns depend on priority
             if(i>0&&j>1){
                 var index= criteria.map(function (p) { return p.name; }).indexOf(store.get("project" + (j-1)).name);
-                $("#matriz" + i).append("<th>" + (index+1) + "</th>");    
+                $("#matriz" + i).append("<th>" + (index+1) + "</th>");
+                store.set("priorityProj"+(j-1), store.get("priorityProj"+(j-1))+((index+1)*store.get("ponC"+i)*.001));
+            }
+        }
+    }
+    //dos filas extras
+    for(var j=i, k=i+2, p=1; j<k;j++){
+        for (var l = 0; l <= store.get("projectTot") + 1; l++) {
+            if(l==0){
+                $("#modalMatrizTable").append("<tr id=matriz" + j + "><th></th></tr>");
+            }else if(l==1 && j==i){
+                $("#matriz" + j).append("<th>Total</th>");
+            }else if(l==1 && j==(i+1)){
+                $("#matriz" + j).append("<th>Prioridad</th>");
+            }else{
+                $("#matriz" + j).append("<th>"+store.get("priorityProj"+p)+"</th>");
+                p++;
             }
         }
     }
@@ -162,12 +179,12 @@ function refreshCtotal(ponCtot){
 
  //Saves the values of the criteria assigned to each project 
 function valueMatrix() {
-    console.log("Saved values!");
+    //console.log("Saved values!");
     var data = $('#value-Form').serializeArray();
     for(var i=1, j=0;i<=store.get("criteriaTot");i++){
         for(var k=1;k<=store.get("projectTot");j++, k++){
             store.set("proj"+k+"crit"+i, data[j].value);
-            console.log(store.get("proj"+k+"crit"+i));
+            //console.log(store.get("proj"+k+"crit"+i));
         }
     }
     fillModalMatrizTable();
