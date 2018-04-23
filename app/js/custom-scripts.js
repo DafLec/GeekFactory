@@ -16,7 +16,7 @@ function fillProjectList() {
             '   <div class="collapsible-header blue-text">'+store.get("project"+i).name+'</div>' +
             '   <div class="collapsible-body">'+
             '       <span>Description: '+store.get("project"+i).description+'</span><br>' +
-            '       <span>Valor: '+store.get("project"+i).cost+'</span>' +
+            '       <span>Valor: $'+store.get("project"+i).cost+'</span>' +
             '   </div>' +
             '</li>';
         $('#projectListSide').append(html);
@@ -44,7 +44,7 @@ function fillCriteriaList(){
 function fillCriteriaTab(){
     for(var i=1; i<=store.get("criteriaTot"); i++){
         var temp = store.get("criteria"+i);
-        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input type= 'text' name='ponC"+i+"'></td></tr>")
+        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input class='col s2 m2 white-text' min='0' max='100' type= 'text' name='ponC"+i+"'><a class='white-text col s1 m1'>%</a> </td></tr>")
     }
 }
 
@@ -68,7 +68,7 @@ function fillValuesTab(){
                 if(store.get("criteria"+i).type=="Cualitativo"){
                     $("#value-swipe"+i).append('<td><select style="display: inline"><option value="" disabled selected>Eliga una opción</option><option value="1">Muy bajo</option><option value="2">Bajo</option><option value="3">Medio</option><option value="4">Alto</option><option value="5">Muy alto</option></select></td>');
                 }else{
-                    $("#value-swipe"+i).append('<td><input type="number" class="form-control text-center"></td>');
+                    $("#value-swipe"+i).append('<td><a class="white-text col s1 m1">$</a><input type="number" class="form-control text-center col s4 m4 white-text"></td>');
                 }
                 
             }
@@ -159,7 +159,7 @@ $(document).ready(function () {
         var data = $(this).serializeArray();
         for(var i =0; i<store.get("criteriaTot"); i++){
             if(data[i].value== null){
-                alert("Debe de ingresar un varlor de ponderación para cada criterio")
+                alert("Debe de ingresar un valor de ponderación para cada criterio");
                 break;
             }else{
                 console.log("Ponderación criterio "+(i+1)+": "+data[i].value);
