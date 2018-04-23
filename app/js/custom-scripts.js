@@ -162,7 +162,7 @@ function fillModalMatrizTable() {
             if(i>0&&j>1){
                 var index= criteria.map(function (p) { return p.name; }).indexOf(store.get("project" + (j-1)).name);
                 $("#matriz" + i).append("<th>" + (index+1) + "</th>");
-                store.set("priorityProj"+(j-1), store.get("priorityProj"+(j-1))+((index+1)*store.get("ponC"+i)*.001));
+                store.set("priorityProj"+(j-1), store.get("priorityProj"+(j-1))+((index+1)*store.get("ponC"+i)*.01));
             }
         }
     }
