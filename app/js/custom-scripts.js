@@ -7,6 +7,46 @@ function clearStoreDB() {
     store.clearAll();
 }
 
+function suggestInvest(){
+    var investment = $('#inversion').val();
+    var pCost = 100;//TODO:CHANGE FOR REAL VALUES FROM PROJECTS.
+    var html = '<a class="blue-grey-text">Proyectos prioritarios ejecutables con el presupuesto de inversion: </a>'+
+        '<br><br>'+
+        '<div class="divider"></div> '+
+        '<div style="overflow-y: scroll">';
+
+    var i;
+    for (i = 0; i < 20; i++) {
+        if (pCost<=investment){
+            html += '' +
+                '<a>'+i+'</a><br>' +
+                '<div class="divider"></div>';
+        }
+    }
+
+    html += '</div>';
+    swal({
+            title: "Listo!",
+            text: html,
+            type: "success",
+            html: true,
+            customClass: 'swal-wider',
+            confirmButtonColor: "#00b0ff",
+            confirmButtonText: "Terminar",
+            closeOnConfirm: true },
+        function(){
+
+        });
+}
+
+$('#inversion').on('input',function(e){
+    if ($(this).val() === null || $(this).val() == '' || $(this).val() === 0) {
+        $('#btnInvest').hide();
+    } else {
+        $('#btnInvest').show();
+    }
+});
+
 // Fills project list
 function fillProjectList() {
     var html = '';
@@ -15,13 +55,12 @@ function fillProjectList() {
             '<li>' +
             '   <div class="collapsible-header blue-text">'+store.get("project"+i).name+'</div>' +
             '   <div class="collapsible-body">'+
-            '       <span>Description: '+store.get("project"+i).description+'</span><br>' +
+            '       <span>Descripción: '+store.get("project"+i).description+'</span><br>' +
             '       <span>Valor: $'+store.get("project"+i).cost+'</span>' +
             '   </div>' +
             '</li>';
         $('#projectListSide').append(html);
     }
-
 }
 
 //Fills criteria list
@@ -76,10 +115,10 @@ function fillValuesTab(){
     }
 }
 
-function fillModalMatrizTable(){
-    for(var i=0; i<=store.get("criteriaTot"); i++){
+function fillModalMatrizTable() {
+    for (var i = 0; i <= store.get("criteriaTot"); i++) {
         //analize data
-        if(i>0){
+        if (i > 0) {
             var criteria = toArray(i);
             console.log(store.get("criteria"+i));
             if (store.get("criteria"+i).mayMen == 1){//Bigger is better
@@ -100,14 +139,34 @@ function fillModalMatrizTable(){
                }else{
                     $("#modalMatrizTable").children("tr").append("<th>"+store.get("project"+(j-1)).name+"</th");   
                }
+            console.log(store.get("criteria" + i));
+            if (store.get("criteria" + i).mayMen == 1) {//Bigger is better
+                criteria = sortByKey(criteria, 'criterium').reverse(); //descending order
+            } else {//lower is better
+                criteria = sortByKey(criteria, "criterium");//acending order
             }
-            //In the first column we need the criteria name
-            if(i>0&&j==0){
-                $("#modalMatrizTable").append("<tr id=matriz"+i+"><th>"+store.get("criteria"+i).name+"</th></tr>");
-            }
-            //In the second column we need the criterium's ponderation
-            if(i>0&&j==1){
-                $("#matriz"+i).append("<th>"+store.get("ponC"+i)+" %</th>");
+
+
+            //fills table
+            for (var j = 0; j <= store.get("projectTot") + 1; j++) {
+                //This if is for filling the first row of the table
+                if (i == 0) {
+                    if (j == 0) {
+                        $("#modalMatrizTable").append("<tr><th>Criterio</th></tr>");
+                    } else if (j == 1) {
+                        $("#modalMatrizTable").children("tr").append("<th>Ponderación</th>");
+                    } else {
+                        $("#modalMatrizTable").children("tr").append("<th>" + store.get("project" + (j - 1)).name + "</th");
+                    }
+                }
+                //In the first column we need the criteria name
+                if (i > 0 && j == 0) {
+                    $("#modalMatrizTable").append("<tr id=matriz" + i + "><th>" + store.get("criteria" + i).name + "</th></tr>");
+                }
+                //In the second column we need the criterium's ponderation
+                if (i > 0 && j == 1) {
+                    $("#matriz" + i).append("<th>" + store.get("ponC" + i) + " %</th>");
+                }
             }
             //Following columns depend on priority
             if(i>0&&j>1){
@@ -189,7 +248,7 @@ $(document).ready(function () {
         var MayMen = $('#selectValueCrit').val();
         console.log("Criterio: " , data);
         //Store data into Store.js
-        if (data[0].value != '') {
+        if (data[0].value !== '' && data[0].value !== null && data[0].value !== 'undefined') {
             //Sets values to the store object
             //If there is no criteria with that name, it will be created, otherwise it will alert the user.
             if (store.get(data[0].value) == null) {
@@ -201,10 +260,10 @@ $(document).ready(function () {
                 $('#newCriteria-Form').trigger('reset');//Cleans/Restarts #newCriteria-Form.
                 location.reload();
             } else if (store.get(data[0].value) !== null) {
-                alert("Lo sentimos, este criterio ya existe");
+                swal("),:", "¡Lo sentimos, este criterio ya existe!", "error");
             }
         }else {
-            alert("Porfavor escriba un nombre para el criterio");
+            swal("¡Faltan campos!", "¡Porfavor escriba nombre de criterio!", "info");
         }
     });
     
@@ -214,7 +273,7 @@ $(document).ready(function () {
         //Gets values from the form
         var data = $(this).serializeArray();
         console.log("Proyecto: ",data);
-        if(data[0].value != ''){
+        if(data[0].value !== '' && data[0].value !== null && data[0].value !== 'undefined'){
             if(store.get(data[0].value) == null){
                 ptot ++;
                 store.set("project"+ptot, {name: data[0].value, description: data[1].value, cost: data[2].value});
@@ -224,10 +283,10 @@ $(document).ready(function () {
                 $('#newProject-Form').trigger('reset');
                 location.reload();
             }else if (store.get(data[0].vale) !== null){
-                alert("Lo sentimos, este proyecto ya existe");
+                swal("),:", "¡Lo sentimos, este proyecto ya existe!", "error");
             }
         }else{
-            alert("Por favor escriba el nombre del proyecto");
+            swal("¡Faltan campos!", "¡Porfavor escriba nombre de proyecto!", "info");
         }
     });
     
@@ -238,7 +297,7 @@ $(document).ready(function () {
         var data = $(this).serializeArray();
         for(var i =0; i<store.get("criteriaTot"); i++){
             if(data[i].value == null || data[i].value === '' || data[i].value === 'NaN'){
-                alert("Debe de ingresar un valor de ponderación para cada criterio");
+                swal("¡Aviso!", "Debe de ingresar un valor de ponderación para cada criterio.", "info");
                 break;
             }else {
                 console.log("Ponderación criterio "+(i+1)+": "+data[i].value);
@@ -251,7 +310,7 @@ $(document).ready(function () {
 
         console.log("Ponderacion:", ponCtot);
         if ( ponCtot !== 100 ){
-            alert("Porfavor verifique que la suma de las ponderaciones sea igual a 100");
+            swal("¡Error!", "Porfavor verifique que la suma de las ponderaciones sea igual a 100.", "error");
         }
 
         ponCtot = 0;
