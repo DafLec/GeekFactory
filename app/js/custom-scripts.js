@@ -120,59 +120,37 @@ function fillModalMatrizTable() {
         //analize data
         if (i > 0) {
             var criteria = toArray(i);
-            console.log(store.get("criteria"+i));
             if (store.get("criteria"+i).mayMen == 1){//Bigger is better
                 criteria= sortByKey(criteria, 'criterium').reverse(); //descending order
             }else{//lower is better
                 criteria = sortByKey(criteria,"criterium");//acending order
             }
         }
-        
+
         //fills table
-        for(var j =0; j<=store.get("projectTot")+1;j++){
-            //This if is for filling the first row of the table
-            if(i==0){
-               if(j==0){
-                   $("#modalMatrizTable").append("<tr><th>Criterio</th></tr>");
-               }else if(j==1){
-                   $("#modalMatrizTable").children("tr").append("<th>Ponderación</th>");
-               }else{
-                    $("#modalMatrizTable").children("tr").append("<th>"+store.get("project"+(j-1)).name+"</th");   
-               }
-            console.log(store.get("criteria" + i));
-            if (store.get("criteria" + i).mayMen == 1) {//Bigger is better
-                criteria = sortByKey(criteria, 'criterium').reverse(); //descending order
-            } else {//lower is better
-                criteria = sortByKey(criteria, "criterium");//acending order
+        for (var j = 0; j <= store.get("projectTot") + 1; j++) {
+        //This if is for filling the first row of the table
+            if (i == 0) {
+                if (j == 0) {
+                    $("#modalMatrizTable").append("<tr><th>Criterio</th></tr>");
+                } else if (j == 1) {
+                    $("#modalMatrizTable").children("tr").append("<th>Ponderación</th>");
+                } else {
+                    $("#modalMatrizTable").children("tr").append("<th>" + store.get("project" + (j - 1)).name + "</th");
+                }
             }
-
-
-            //fills table
-            for (var j = 0; j <= store.get("projectTot") + 1; j++) {
-                //This if is for filling the first row of the table
-                if (i == 0) {
-                    if (j == 0) {
-                        $("#modalMatrizTable").append("<tr><th>Criterio</th></tr>");
-                    } else if (j == 1) {
-                        $("#modalMatrizTable").children("tr").append("<th>Ponderación</th>");
-                    } else {
-                        $("#modalMatrizTable").children("tr").append("<th>" + store.get("project" + (j - 1)).name + "</th");
-                    }
-                }
-                //In the first column we need the criteria name
-                if (i > 0 && j == 0) {
-                    $("#modalMatrizTable").append("<tr id=matriz" + i + "><th>" + store.get("criteria" + i).name + "</th></tr>");
-                }
-                //In the second column we need the criterium's ponderation
-                if (i > 0 && j == 1) {
-                    $("#matriz" + i).append("<th>" + store.get("ponC" + i) + " %</th>");
-                }
+            //In the first column we need the criteria name
+            if (i > 0 && j == 0) {
+                $("#modalMatrizTable").append("<tr id=matriz" + i + "><th>" + store.get("criteria" + i).name + "</th></tr>");
+            }
+            //In the second column we need the criterium's ponderation
+            if (i > 0 && j == 1) {
+                $("#matriz" + i).append("<th>" + store.get("ponC" + i) + " %</th>");
             }
             //Following columns depend on priority
             if(i>0&&j>1){
-                criteria.forEach(function(c){
-                    console.log(c.name);
-                });
+                var index= criteria.map(function (p) { return p.name; }).indexOf(store.get("project" + (j-1)).name);
+                $("#matriz" + i).append("<th>" + (index+1) + "</th>");    
             }
         }
     }
