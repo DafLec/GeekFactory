@@ -15,7 +15,7 @@ function fillProjectList() {
             '<li>' +
             '   <div class="collapsible-header blue-text">'+store.get("project"+i).name+'</div>' +
             '   <div class="collapsible-body">'+
-            '       <span>Description: '+store.get("project"+i).description+'</span>' +
+            '       <span>Description: '+store.get("project"+i).description+'</span><br>' +
             '       <span>Valor: '+store.get("project"+i).cost+'</span>' +
             '   </div>' +
             '</li>';
