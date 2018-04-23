@@ -9,16 +9,34 @@ function clearStoreDB() {
 
 // Fills project list
 function fillProjectList() {
+    var html = '';
     for(var i=1; i<=store.get("projectTot"); i++){
-        $('#projectListSide').append("<li>"+store.get("project"+i).name+"</li>");
+        html = '' +
+            '<li>' +
+            '   <div class="collapsible-header blue-text">'+store.get("project"+i).name+'</div>' +
+            '   <div class="collapsible-body">'+
+            '       <span>Description: '+store.get("project"+i).description+'</span>' +
+            '       <span>Valor: '+store.get("project"+i).cost+'</span>' +
+            '   </div>' +
+            '</li>';
+        $('#projectListSide').append(html);
     }
 
 }
 
 //Fills criteria list
 function fillCriteriaList(){
+    var html = '';
     for(var i=1; i<=store.get("criteriaTot"); i++){
-        $('#criteriaListSide').append("<li>"+store.get("criteria"+i).name+"</li>");
+        html = '' +
+            '<li>' +
+            '   <div class="collapsible-header blue-text">'+store.get("criteria"+i).name+'</div>' +
+            '   <div class="collapsible-body">' +
+            '       <span>Tipo: ' +store.get("criteria"+i).type+ '</span><br>' +
+            // '       <span>Valor: ' +store.get("criteria"+i).value+ '</span>' +
+            '   </div>' +
+            '</li>';
+        $('#criteriaListSide').append(html);
     }
 }
 
@@ -64,7 +82,8 @@ $(document).ready(function () {
     $('.modal').modal();
     $('select').formSelect();
     $('.tabs').tabs({swipeable: true});
-    
+    $('.collapsible').collapsible();
+
     //Total number of criteria and projects
     if(store.get("criteriaTot")==null){
         store.set("criteriaTot", 0);
