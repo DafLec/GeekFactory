@@ -68,7 +68,7 @@
                                 <li class="tab col s3"><a class="active blue-text" href="#criteria-swap">Criterios</a></li>
                                 <li class="tab col s3"><a class="blue-text" href="#value-swipe">Valores</a></li>
                             </ul>
-                            <div id="criteria-swap" class="col s12 cyan darken-1 white-text" style="overflow-y: auto; height: 600px;">
+                            <div id="criteria-swap" class="col s12 cyan darken-1 white-text" style="overflow-y: auto; overflow-x: auto; height: 600px; width: 760px">
                                 <form id="criteriaPonderation-Form">
                                     <table>
                                         <tr><th>Criterio</th>
@@ -81,7 +81,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div id="value-swipe" class="col s12 teal darken-1 white-text" style="overflow-y: auto; height: 600px;">
+                            <div id="value-swipe" class="col s12 teal darken-1 white-text" style="overflow-y: auto; overflow-x: scroll; height: 600px; width: 760px">
                                 <form id="value-Form">
                                     <table>
                                     </table>
@@ -137,19 +137,24 @@
                                 <div class="row">
                                     <div class="form-group s12 m12" style="max-width: 95%; max-height: 95%; padding-top: 10%; padding-left: 6%; padding-right: 6%">
                                         <label for="projectName">Nombre del proyecto</label>
-                                        <input id="projectName" name="projectName" type="text" class="form-control text-center" placeholder="Nombre">
+                                        <input id="projectName" name="projectName" type="text" class="form-control text-center" maxlength="10"  placeholder="Nombre (Max. 10 caracteres)">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group s12 m12" style="max-width: 95%; max-height: 95%; padding-top: 10%; padding-left: 6%; padding-right: 6%">
                                         <label for="projectDescription">Descripción</label>
-                                        <textarea id="projectDescription" name="description" class="form-control"></textarea>
+                                        <textarea id="projectDescription" name="description" maxlength="255" placeholder="Descripcion(Max. 255 caracteres)" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group s12 m12" style="max-width: 95%; max-height: 95%; padding-top: 10%; padding-left: 6%; padding-right: 6%">
                                         <label for="projectQty">Costo</label>
-                                        <input id="projectQty" name="cost" type="number" class="form-control text-center" placeholder="Cantidad">
+                                        <div class="col s1 m1">
+                                            <a class="blue-text">$</a>
+                                        </div>
+                                        <div class="col s11 m11">
+                                            <input id="projectQty" name="cost" type="number" class="form-control text-center" placeholder="Cantidad">
+                                        </div>
                                     </div>
                                     <br>
                                 </div>
