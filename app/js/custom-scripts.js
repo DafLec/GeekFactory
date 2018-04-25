@@ -7,6 +7,15 @@ function clearStoreDB() {
     store.clearAll();
 }
 
+function resetPriority(){
+    for (var i =1; i<=store.get("projectTot");i++){
+        store.set("priorityProj"+i, 0);
+    }
+}
+function roundToTwo(num) {    
+    return +(Math.round(num + "e+2")  + "e-2");
+}
+
 function suggestInvest(){
     var temp = priorityArray();
     if (temp !== null){
@@ -127,6 +136,7 @@ function fillValuesTab(){
 
 function fillModalMatrizTable() {
     $('#modalMatrizTable').html("");
+    resetPriority();
     var i;
     for (i = 0; i <= store.get("criteriaTot"); i++) {
         //analize data
@@ -163,7 +173,9 @@ function fillModalMatrizTable() {
             if(i>0&&j>1){
                 var index= criteria.map(function (p) { return p.name; }).indexOf(store.get("project" + (j-1)).name);
                 $("#matriz" + i).append("<th>" + (index+1) + "</th>");
-                store.set("priorityProj"+(j-1), store.get("priorityProj"+(j-1))+((index+1)*store.get("ponC"+i)*.01));
+                var adding =store.get("priorityProj"+(j-1))+((index+1)*store.get("ponC"+i)*.01);
+                adding = roundToTwo(adding);
+                store.set("priorityProj"+(j-1), adding);
             }
         }
     }
