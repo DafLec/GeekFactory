@@ -81,9 +81,14 @@ function fillCriteriaList(){
             '<li>' +
             '   <div class="collapsible-header blue-text">'+store.get("criteria"+i).name+'</div>' +
             '   <div class="collapsible-body">' +
-            '       <span>Tipo: ' +store.get("criteria"+i).type+ '</span><br>' +
-            // '       <span>Valor: ' +store.get("criteria"+i).value+ '</span>' +
-            '   </div>' +
+            '       <span>Tipo: ' +store.get("criteria"+i).type+ '</span><br>';
+        if (parseInt(store.get("criteria"+i).mayMen) == 1) {
+            html += '<span>Valor: Mayor</span>';
+        } else {
+            html += '<span>Valor: Menor</span>';
+        }
+
+        html += '</div>' +
             '</li>';
         $('#criteriaListSide').append(html);
     }
@@ -329,6 +334,7 @@ $(document).ready(function () {
                 ponCtot += parseInt(data[i].value);
                 refreshCtotal(ponCtot);
                 console.log("ponCtot", ponCtot);
+                swal("¡Listo!", "Ponderaciones guardadas.", "success");
             }
         }
 
