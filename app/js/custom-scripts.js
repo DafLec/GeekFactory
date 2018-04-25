@@ -93,7 +93,7 @@ function fillCriteriaList(){
 function fillCriteriaTab(){
     for(var i=1; i<=store.get("criteriaTot"); i++){
         var temp = store.get("criteria"+i);
-        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input class='col s2 m2 white-text' min='0' max='100' type= 'number' name='ponC"+i+"'><a class='white-text col s1 m1'>%</a> </td></tr>")
+        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input class='col s2 m2 white-text cInput' min='0' max='100' type= 'number' name='ponC"+i+"'><a class='white-text col s1 m1'>%</a> </td></tr>")
     }
 }
 
@@ -190,7 +190,7 @@ function fillModalMatrizTable() {
 }
 
 function refreshCtotal(ponCtot){
-    $('#cTotal').text('Total: ' + ponCtot+'%');
+    $('#cTotal').text('Total: ( ' + ponCtot+' / 100 ) %');
 }
 
  //Saves the values of the criteria assigned to each project 
@@ -317,7 +317,7 @@ $(document).ready(function () {
     //Saves the value of the ponderations of the criteria
     $('#criteriaPonderation-Form').submit(function(e){
         e.preventDefault();
-        
+        ponCtot = 0;
         var data = $(this).serializeArray();
         for(var i =0; i<store.get("criteriaTot"); i++){
             if(data[i].value == null || data[i].value === '' || data[i].value === 'NaN'){
@@ -338,5 +338,20 @@ $(document).ready(function () {
         }
 
         ponCtot = 0;
+    });
+
+//    Updates total ammount of criteria % when changed.
+    $('.cInput').on('change', function (e) {
+        e.preventDefault();
+        console.log("Changed");
+        ponCtot = 0;
+        var data = $('#criteriaPonderation-Form').serializeArray();
+        for(var i =0; i<store.get("criteriaTot"); i++){
+            if (0 <= parseInt(data[i].value) && parseInt(data[i].value) != null) {
+                ponCtot += parseInt(data[i].value);
+                console.log("ponCtot", ponCtot);
+            }
+        }
+        refreshCtotal(ponCtot);
     });
 });
