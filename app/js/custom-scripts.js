@@ -20,7 +20,6 @@ function suggestInvest(){
     var temp = priorityArray();
     if (temp !== null){
         var investment = parseInt($('#inversion').val());
-        var pCost = 100;//TODO:CHANGE FOR REAL VALUES FROM PROJECTS.
         var html = '<a class="blue-grey-text">Proyectos prioritarios ejecutables con el presupuesto de inversion: </a>'+
             '<br><br>'+
             '<div class="divider"></div> '+
@@ -35,6 +34,50 @@ function suggestInvest(){
                     '<a> Proyecto: '+body.name+'</a><br>' +
                     '<div class="divider"></div>';
             }
+            i++;
+        });
+
+
+
+        html += '</div>';
+        swal({
+                title: "Listo!",
+                text: html,
+                type: "success",
+                html: true,
+                customClass: 'swal-wider',
+                confirmButtonColor: "#00b0ff",
+                confirmButtonText: "Terminar",
+                closeOnConfirm: true },
+            function(){
+
+            });
+    }else {
+        swal("Error:", "¡Lo sentimos, la informacion no esta bien especificada!", "error");
+    }
+
+}
+
+function suggestInvest2(){
+    var temp = priorityArray();
+    if (temp !== null){
+        var investment = parseInt($('#inversion').val());
+        var html = '<a class="blue-grey-text">Proyectos prioritarios ejecutables con el mismo presupuesto: </a>'+
+            '<br><br>'+
+            '<div class="divider"></div> '+
+            '<div style="overflow-y: scroll">';
+
+        var i = 1;
+        $(temp).each(function (key, body) {
+            console.log("Cost: ", body.cost + " <= " + investment);
+            if ( parseInt(body.cost) <= investment){
+                html += '' +
+                    '<a>Prioridad: '+i+' :</a>' +
+                    '<a> Proyecto: '+body.name+'</a><br>' +
+                    '<div class="divider"></div>';
+            }
+            investment -= parseInt(body.cost);
+            i++;
         });
 
 
@@ -61,8 +104,10 @@ function suggestInvest(){
 $('#inversion').on('input',function(e){
     if ($(this).val() === null || $(this).val() == '' || $(this).val() === 0) {
         $('#btnInvest').hide();
+        $('#btnInvest2').hide();
     } else {
         $('#btnInvest').show();
+        $('#btnInvest2').show();
     }
 });
 
@@ -90,9 +135,14 @@ function fillCriteriaList(){
             '<li>' +
             '   <div class="collapsible-header blue-text">'+store.get("criteria"+i).name+'</div>' +
             '   <div class="collapsible-body">' +
-            '       <span>Tipo: ' +store.get("criteria"+i).type+ '</span><br>' +
-            // '       <span>Valor: ' +store.get("criteria"+i).value+ '</span>' +
-            '   </div>' +
+            '       <span>Tipo: ' +store.get("criteria"+i).type+ '</span><br>';
+        if (parseInt(store.get("criteria"+i).mayMen) == 1) {
+            html += '<span>Valor: Mayor</span>';
+        } else {
+            html += '<span>Valor: Menor</span>';
+        }
+
+        html += '</div>' +
             '</li>';
         $('#criteriaListSide').append(html);
     }
@@ -102,7 +152,7 @@ function fillCriteriaList(){
 function fillCriteriaTab(){
     for(var i=1; i<=store.get("criteriaTot"); i++){
         var temp = store.get("criteria"+i);
-        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input class='col s2 m2 white-text' min='0' max='100' type= 'number' name='ponC"+i+"'><a class='white-text col s1 m1'>%</a> </td></tr>")
+        $("#criteria-swap").children("form").children("table").append("<tr><td>"+temp.name+"</td>"+"<td>"+temp.type+"</td><td><input class='col s2 m2 white-text cInput' min='0' max='100' type= 'number' name='ponC"+i+"'><a class='white-text col s1 m1'>%</a> </td></tr>")
     }
 }
 
@@ -202,7 +252,7 @@ function fillModalMatrizTable() {
 }
 
 function refreshCtotal(ponCtot){
-    $('#cTotal').text('Total: ' + ponCtot+'%');
+    $('#cTotal').text('Total: ( ' + ponCtot+' / 100 ) %');
 }
 
  //Saves the values of the criteria assigned to each project 
@@ -329,7 +379,7 @@ $(document).ready(function () {
     //Saves the value of the ponderations of the criteria
     $('#criteriaPonderation-Form').submit(function(e){
         e.preventDefault();
-        
+        ponCtot = 0;
         var data = $(this).serializeArray();
         for(var i =0; i<store.get("criteriaTot"); i++){
             if(data[i].value == null || data[i].value === '' || data[i].value === 'NaN'){
@@ -341,6 +391,7 @@ $(document).ready(function () {
                 ponCtot += parseInt(data[i].value);
                 refreshCtotal(ponCtot);
                 console.log("ponCtot", ponCtot);
+                swal("¡Listo!", "Ponderaciones guardadas.", "success");
             }
         }
 
@@ -350,5 +401,20 @@ $(document).ready(function () {
         }
 
         ponCtot = 0;
+    });
+
+//    Updates total ammount of criteria % when changed.
+    $('.cInput').on('change', function (e) {
+        e.preventDefault();
+        console.log("Changed");
+        ponCtot = 0;
+        var data = $('#criteriaPonderation-Form').serializeArray();
+        for(var i =0; i<store.get("criteriaTot"); i++){
+            if (0 <= parseInt(data[i].value) && parseInt(data[i].value) != null) {
+                ponCtot += parseInt(data[i].value);
+                console.log("ponCtot", ponCtot);
+            }
+        }
+        refreshCtotal(ponCtot);
     });
 });

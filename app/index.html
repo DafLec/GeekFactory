@@ -43,7 +43,10 @@
                             <input placeholder="inversion" id="inversion" type="number" min="1" class="validate">
                         </div>
                     </div>
-                    <a id="btnInvest" class="btn blue white-text col s2 m2 offset-m1" onclick="suggestInvest()" style="display: none">Proponer!</a>
+                    <div class="col s4 m4">
+                        <a id="btnInvest" class="btn blue white-text col s4 m4 offset-m1" onclick="suggestInvest()" style="display: none">Todos</a>
+                        <a id="btnInvest2" class="btn blue white-text col s6 m6 offset-m1" onclick="suggestInvest2()" style="display: none">Misma inversion</a>
+                    </div>
                 </div>
             </div>
             <div class="col s12 m12">
@@ -80,8 +83,8 @@
                     <div class="col s12 m8" style="padding-top: .5%">
                         <div id="contentTabs">
                             <ul id="tabs-swipe-demo" class="tabs">
-                                <li class="tab col s3"><a class="active blue-text" href="#criteria-swap">Criterios</a></li>
-                                <li class="tab col s3"><a class="blue-text" href="#value-swipe">Valores</a></li>
+                                <li class="tab col s6"><a class="active blue-text" href="#criteria-swap">Establecimiento de Criterios</a></li>
+                                <li class="tab col s6"><a class="blue-text" href="#value-swipe">Asignacion de Valores</a></li>
                             </ul>
                             <div id="criteria-swap" class="col s12 cyan darken-1 white-text" style="overflow-y: auto; overflow-x: auto; height: 600px;">
                                 <form id="criteriaPonderation-Form">
@@ -92,7 +95,7 @@
                                     </table>
                                     <div class="text-center center">
                                         <button type="submit" class="btn btn-outline-success">Aceptar</button>
-                                        <a id="cTotal" class="white-text">Total: </a>
+                                        <a id="cTotal" class="white-text">Total: ( 0 / 100 ) %</a>
                                     </div>
                                 </form>
                             </div>
@@ -235,7 +238,7 @@
                         </form>
                     </div>
                 </div>
-                <div id="modalMatriz" class="modal">
+                <div id="modalMatriz" class="modal" style="width: 90%!important; height: 95%!important;">
                     <div class="modal-content">
                         <h4>Matriz de decisión</h4>
                         <!--AQUI PONER EL HTML DE TABLA DE MATRIZ DE VALORES-->
