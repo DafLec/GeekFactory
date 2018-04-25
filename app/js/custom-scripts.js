@@ -11,7 +11,6 @@ function suggestInvest(){
     var temp = priorityArray();
     if (temp !== null){
         var investment = parseInt($('#inversion').val());
-        var pCost = 100;//TODO:CHANGE FOR REAL VALUES FROM PROJECTS.
         var html = '<a class="blue-grey-text">Proyectos prioritarios ejecutables con el presupuesto de inversion: </a>'+
             '<br><br>'+
             '<div class="divider"></div> '+
@@ -26,6 +25,50 @@ function suggestInvest(){
                     '<a> Proyecto: '+body.name+'</a><br>' +
                     '<div class="divider"></div>';
             }
+            i++;
+        });
+
+
+
+        html += '</div>';
+        swal({
+                title: "Listo!",
+                text: html,
+                type: "success",
+                html: true,
+                customClass: 'swal-wider',
+                confirmButtonColor: "#00b0ff",
+                confirmButtonText: "Terminar",
+                closeOnConfirm: true },
+            function(){
+
+            });
+    }else {
+        swal("Error:", "¡Lo sentimos, la informacion no esta bien especificada!", "error");
+    }
+
+}
+
+function suggestInvest2(){
+    var temp = priorityArray();
+    if (temp !== null){
+        var investment = parseInt($('#inversion').val());
+        var html = '<a class="blue-grey-text">Proyectos prioritarios ejecutables con el mismo presupuesto: </a>'+
+            '<br><br>'+
+            '<div class="divider"></div> '+
+            '<div style="overflow-y: scroll">';
+
+        var i = 1;
+        $(temp).each(function (key, body) {
+            console.log("Cost: ", body.cost + " <= " + investment);
+            if ( parseInt(body.cost) <= investment){
+                html += '' +
+                    '<a>Prioridad: '+i+' :</a>' +
+                    '<a> Proyecto: '+body.name+'</a><br>' +
+                    '<div class="divider"></div>';
+            }
+            investment -= parseInt(body.cost);
+            i++;
         });
 
 
@@ -52,8 +95,10 @@ function suggestInvest(){
 $('#inversion').on('input',function(e){
     if ($(this).val() === null || $(this).val() == '' || $(this).val() === 0) {
         $('#btnInvest').hide();
+        $('#btnInvest2').hide();
     } else {
         $('#btnInvest').show();
+        $('#btnInvest2').show();
     }
 });
 
