@@ -75,8 +75,8 @@ function suggestInvest2(){
                     '<a>Prioridad: '+i+' :</a>' +
                     '<a> Proyecto: '+body.name+'</a><br>' +
                     '<div class="divider"></div>';
+                investment -= parseInt(body.cost);
             }
-            investment -= parseInt(body.cost);
             i++;
         });
 
